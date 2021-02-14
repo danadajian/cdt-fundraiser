@@ -20,7 +20,7 @@ export const uploadObjectToS3 = async (object: any, bucketName: string, fileName
         Body: JSON.stringify(object)
     };
     if (isDevelopment()) {
-        return delay(250).then(() => console.log('Navigating to payment page...'))
+        return delay(250).then(() => console.log(`Uploaded ${JSON.stringify(object)} to S3!`))
     }
     return S3.putObject(params).promise();
 };
