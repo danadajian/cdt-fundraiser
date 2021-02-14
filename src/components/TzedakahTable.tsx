@@ -10,13 +10,14 @@ export const TzedakahTable = (props: StateProps) =>
         <TableBody>
             {range(1, NUMBER_OF_ROWS + 1).map(rowNumber => (
                 <TableRow key={rowNumber}>
-                    {range(1, NUMBER_OF_COLUMNS + 1).map(columnNumber =>
-                        <Box
+                    {range(1, NUMBER_OF_COLUMNS + 1).map(columnNumber => {
+                        const boxNumber = (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
+                        return <Box
+                            key={boxNumber}
                             props={props}
-                            rowNumber={rowNumber}
-                            columnNumber={columnNumber}
+                            boxNumber={boxNumber}
                         />
-                    )}
+                    })}
                 </TableRow>
             ))}
         </TableBody>
