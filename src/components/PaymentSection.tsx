@@ -1,8 +1,10 @@
-import {State} from "../types";
-import {Table, TableBody, TableCell, TableFooter, TableHead, TableRow} from "@material-ui/core";
-import { sum } from 'lodash';
+import {StateProps} from "../types";
+import {Button, Table, TableBody, TableCell, TableFooter, TableHead, TableRow} from "@material-ui/core";
+import { orderBy, sum } from 'lodash';
+import {handlePayNowButton} from "../handlers/handlePayNowButton";
 
-export const PaymentSection = (props: {state: State}) => {
+export const PaymentSection = (props: StateProps) => {
+    const {state, setState} = props;
     return (
         <Table>
             <TableHead>
@@ -11,7 +13,7 @@ export const PaymentSection = (props: {state: State}) => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {props.state.selectedBoxes.map((selectedBox, index) => (
+                {orderBy(state.selectedBoxes).map((selectedBox, index) => (
                     <TableRow key={index}>
                         <TableCell align={'center'}>{`$${selectedBox}`}</TableCell>
                     </TableRow>
@@ -19,8 +21,10 @@ export const PaymentSection = (props: {state: State}) => {
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <TableCell align={'center'}>{`Your Total: $${sum(props.state.selectedBoxes)}`}</TableCell>
+                    <TableCell align={'center'}>{`Your Total: $${sum(state.selectedBoxes)}`}</TableCell>
                 </TableRow>
+                <Button onClick={() => handlePayNowButton(state)}>Pay Now</Button>
+                <Button onClick={() => setState({...state, selectedBoxes: []})}>Clear</Button>
             </TableFooter>
         </Table>
     )

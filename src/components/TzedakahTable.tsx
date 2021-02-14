@@ -6,7 +6,7 @@ import {Box} from "./Box";
 import React from "react";
 
 export const TzedakahTable = (props: StateProps) =>
-    <Table style={{display: 'flex', justifyContent: 'center'}}>
+    <Table>
         <TableBody>
             {range(1, NUMBER_OF_ROWS + 1).map(rowNumber => (
                 <TableRow key={rowNumber}>
