@@ -7,4 +7,4 @@ export const INITIAL_STATE: State = {
     boxesTaken: []
 };
 export const BOXES_BUCKET_NAME = 'tzedakah-boxes';
-export const BOXES_TAKEN_FILE_NAME = 'boxesTaken.json';
+export const BOXES_TAKEN_FILE_NAME = 'boxes-taken.json';

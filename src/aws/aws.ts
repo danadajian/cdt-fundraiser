@@ -1,5 +1,5 @@
 import {S3} from "../aws";
-import boxesTaken from '../fixtures/boxesTaken.json';
+import boxesTaken from '../fixtures/boxes-taken.json';
 
 export const retrieveObjectFromS3 = async (bucketName: string, fileName: string): Promise<any> => {
     const params = {

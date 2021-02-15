@@ -21,7 +21,6 @@ jobs:
               echo "REACT_APP_AWS_SECRET=$AWS_SECRET_ACCESS_KEY"
             } >> ./.env
 
-            cat ./.env
             npm run build
       - aws-cli/setup:
           aws-region: AWS_REGION
