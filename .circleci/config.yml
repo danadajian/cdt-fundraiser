@@ -15,7 +15,14 @@ jobs:
 #          command: npm run test
       - run:
           name: Build
-          command: npm run build
+          command: |
+            {
+              echo "REACT_APP_AWS_KEY=$AWS_ACCESS_KEY_ID"
+              echo "REACT_APP_AWS_SECRET=$AWS_SECRET_ACCESS_KEY"
+            } >> ./.env
+
+            cat ./.env
+            npm run build
       - aws-cli/setup:
           aws-region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID

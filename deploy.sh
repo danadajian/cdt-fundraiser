@@ -23,11 +23,4 @@ else
     aws s3 website "s3://${APP_BUCKET_NAME}" --index-document index.html
 fi
 
-{
-  echo "REACT_APP_AWS_KEY=$AWS_ACCESS_KEY_ID"
-  echo "REACT_APP_AWS_SECRET=$AWS_SECRET_ACCESS_KEY"
-} >> ./.env
-
-cat ./.env
-
 aws s3 sync ./build "s3://${APP_BUCKET_NAME}" --exclude "precache-manifest*"
