@@ -6,7 +6,7 @@ import {Box} from "./Box";
 import React from "react";
 
 export const TzedakahTable = (props: StateProps) =>
-    <TableContainer style={{height: '80vh', width: '80vw'}}>
+    <TableContainer style={{height: '70vh', width: '100vw'}}>
         <Table>
             <TableBody>
                 {range(1, NUMBER_OF_ROWS + 1).map(rowNumber => (

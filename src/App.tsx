@@ -13,7 +13,7 @@ const App = () => {
     return (
         <div className="App">
             <h1>Tzedakah Boxes</h1>
-            <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
                 <div>
                     <TzedakahTable state={state} setState={setState}/>
                 </div>

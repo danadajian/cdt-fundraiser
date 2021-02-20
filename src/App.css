@@ -1,3 +1,7 @@
 .App {
   text-align: center;
 }
+
+.Gradient {
+  background-image: linear-gradient(to bottom right, lightblue, darkblue);
+}
