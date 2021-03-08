@@ -1,7 +1,28 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.Gradient {
-  background-image: linear-gradient(to bottom right, lightblue, darkblue);
+.TableContainer {
+  height: 70vh;
+  width: 100vw;
+  background-image: linear-gradient(to bottom right, #064AF3, white);
+}
+
+.TableContainer td {
+  border: 1px solid black;
+  padding: 0.8rem 0.2rem;
+  font-weight: bold;
+}
+
+.PaymentSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 5vmin 20vw;
+}
+
+.PaymentSection > * {
+  margin-top: 0.5rem;
 }

@@ -2,6 +2,8 @@ import {TableCell} from "@material-ui/core";
 import React from "react";
 import {StateProps} from "../types";
 import {handleBoxClick} from "../handlers/handleBoxClick";
+import '../App.css';
+import Flame from '../images/cdt-flame.png';
 
 interface BoxProps {
     props: StateProps;
@@ -11,9 +13,16 @@ interface BoxProps {
 export const Box = (props: BoxProps) => {
     const {boxNumber, props: {state, setState}} = props;
     const {selectedBoxes, boxesTaken} = state;
-    const backgroundColor = boxesTaken?.includes(boxNumber) ? 'gray' : selectedBoxes?.includes(boxNumber) ? 'red' : 'white';
+    const styleOverride = selectedBoxes?.includes(boxNumber) ?
+        {backgroundColor: 'gold'} : boxesTaken?.includes(boxNumber) ? {
+            backgroundImage: `url(${Flame})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center'
+        } : {};
+    const boxText = boxesTaken?.includes(boxNumber) ? '' : `$${boxNumber}`;
     return <TableCell
-                align={'center'}
-                style={{border: '1px solid black', backgroundColor, padding: '0.8rem 0.2rem'}}
-                onClick={() => handleBoxClick(state, setState, boxNumber)}>{`$${boxNumber}`}</TableCell>
+        style={{...styleOverride}}
+        align={'center'}
+        onClick={() => handleBoxClick(state, setState, boxNumber)}>{boxText}</TableCell>
 };

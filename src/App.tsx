@@ -10,19 +10,11 @@ const App = () => {
 
     useEffect(() => getLatestBoxesTaken(state, setState), []);
 
-    return (
-        <div className="App">
-            <h1>Tzedakah Boxes</h1>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <div>
-                    <TzedakahTable state={state} setState={setState}/>
-                </div>
-                <div>
-                    <PaymentSection state={state} setState={setState}/>
-                </div>
-            </div>
-        </div>
-    );
+    return <div className={'App'}>
+        <h1>Mission Possible</h1>
+        <TzedakahTable state={state} setState={setState}/>
+        <PaymentSection state={state} setState={setState}/>
+    </div>;
 }
 
 export default App;

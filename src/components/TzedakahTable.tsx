@@ -4,9 +4,10 @@ import {range} from "lodash";
 import {NUMBER_OF_COLUMNS, NUMBER_OF_ROWS} from "../constants";
 import {Box} from "./Box";
 import React from "react";
+import '../App.css';
 
 export const TzedakahTable = (props: StateProps) =>
-    <TableContainer style={{height: '70vh', width: '100vw'}}>
+    <TableContainer className={'TableContainer'}>
         <Table>
             <TableBody>
                 {range(1, NUMBER_OF_ROWS + 1).map(rowNumber => (
