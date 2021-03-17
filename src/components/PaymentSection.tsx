@@ -6,8 +6,8 @@ import '../App.css';
 
 const useStyles = makeStyles({
     badge: {
-        backgroundColor: 'gold',
-        color: 'black'
+        backgroundColor: '#F90505',
+        color: 'white'
     }
 });
 
@@ -24,7 +24,7 @@ export const PaymentSection = (props: StateProps) => {
             required
         />
         <ButtonGroup>
-            <Badge classes={{ badge: classes.badge }} badgeContent={`$${sum(state.selectedBoxes)}`} showZero={false} max={69000}>
+            <Badge classes={{ badge: classes.badge }} badgeContent={`$${sum(state.selectedBoxes)}`} showZero={false} max={100000}>
                 <Button size={'large'} color={'primary'} variant={'contained'} disableRipple={false}
                         onClick={() => handlePayNowButton(state)}>Pay Now</Button>
             </Badge>

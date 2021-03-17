@@ -7,11 +7,12 @@
 .TableContainer {
   height: 70vh;
   width: 100vw;
-  background-image: linear-gradient(to bottom right, #064AF3, white);
+  background-image: linear-gradient(to bottom right, #53646D, #040004);
 }
 
 .TableContainer td {
-  border: 1px solid black;
+  border: 1px solid white;
+  color: white;
   padding: 0.8rem 0.2rem;
   font-weight: bold;
 }
@@ -25,4 +26,9 @@
 
 .PaymentSection > * {
   margin-top: 0.5rem;
+}
+
+.Logo {
+  margin: auto;
+  width: 50%
 }

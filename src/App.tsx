@@ -4,6 +4,7 @@ import {TzedakahTable} from "./components/TzedakahTable";
 import {PaymentSection} from "./components/PaymentSection";
 import {INITIAL_STATE} from "./constants";
 import {getLatestBoxesTaken} from "./handlers/getLatestBoxesTaken";
+import Logo from './images/mission-possible-logo.png';
 
 const App = () => {
     const [state, setState] = useState(INITIAL_STATE);
@@ -11,7 +12,7 @@ const App = () => {
     useEffect(() => getLatestBoxesTaken(state, setState), []);
 
     return <div className={'App'}>
-        <h1>Mission Possible</h1>
+        <img className={'Logo'} src={Logo} alt={'Logo'}/>
         <TzedakahTable state={state} setState={setState}/>
         <PaymentSection state={state} setState={setState}/>
     </div>;

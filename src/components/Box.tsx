@@ -14,7 +14,7 @@ export const Box = (props: BoxProps) => {
     const {boxNumber, props: {state, setState}} = props;
     const {selectedBoxes, boxesTaken} = state;
     const styleOverride = selectedBoxes?.includes(boxNumber) ?
-        {backgroundColor: 'gold'} : boxesTaken?.includes(boxNumber) ? {
+        {backgroundColor: '#F90505'} : boxesTaken?.includes(boxNumber) ? {
             backgroundImage: `url(${Flame})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
