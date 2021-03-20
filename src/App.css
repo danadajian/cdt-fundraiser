@@ -2,9 +2,6 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-}
-
-.TableContainer {
   background-image: linear-gradient(to bottom right, #53646D, #040004);
 }
 
@@ -20,6 +17,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 5vmin 20vw;
+  color: #F90505
 }
 
 .PaymentSection > * {

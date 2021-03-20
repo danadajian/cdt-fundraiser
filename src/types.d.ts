@@ -4,6 +4,15 @@ export interface StateProps {
 }
 
 export interface State {
-    selectedBoxes: number[];
-    boxesTaken: number[];
+    selectedBoxNumbers: number[];
+    boxesTaken: Box[];
+}
+
+export interface BoxesData {
+    boxes: Box[]
+}
+
+export interface Box {
+    name: string;
+    number: number;
 }
