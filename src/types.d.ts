@@ -6,6 +6,8 @@ export interface StateProps {
 export interface State {
     selectedBoxNumbers: number[];
     boxesTaken: Box[];
+    name?: string;
+    paymentComplete: boolean;
 }
 
 export interface BoxesData {

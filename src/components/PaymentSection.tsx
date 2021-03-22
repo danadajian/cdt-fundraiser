@@ -24,7 +24,7 @@ export const PaymentSection = (props: StateProps) => {
         <ButtonGroup>
             <Badge classes={{ badge: classes.badge }} badgeContent={`$${sum(state.selectedBoxNumbers)}`} showZero={false} max={100000}>
                 <Button size={'large'} color={'primary'} variant={'contained'} disableRipple={false}
-                        onClick={() => handlePayNowButton(state, name)}>Pay Now</Button>
+                        onClick={() => handlePayNowButton(props, name)}>Pay Now</Button>
             </Badge>
             <Button size={'large'} color={'default'} variant={'outlined'}
                     onClick={() => setState({...state, selectedBoxNumbers: []})}>Clear</Button>

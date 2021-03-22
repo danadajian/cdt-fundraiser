@@ -32,3 +32,22 @@
   margin: auto;
   width: 50%;
 }
+
+.PaymentConfirmation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  color: white;
+  background-image: linear-gradient(to bottom right, #53646D, #040004);
+}
+
+.PaymentConfirmation p {
+  font-weight: bold;
+  font-size: xxx-large;
+}
+
+.PaymentConfirmation span {
+  font-size: x-large;
+}
