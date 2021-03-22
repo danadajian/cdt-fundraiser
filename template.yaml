@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  BucketName:
+    Type: String
+  CodeKey:
+    Type: String
+  SnsTopicArn:
+    Type: String
+  AwsKey:
+    Type: String
+  AwsSecret:
+    Type: String
+Globals:
+  Function:
+    MemorySize: 512
+    Timeout: 900
+
+Resources:
+  TzedakahBoxesCronFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri:
+        Bucket: !Ref BucketName
+        Key: !Ref CodeKey
+      Handler: build/index.handler
+      Runtime: nodejs12.x
+      Events:
+        InvocationLevel:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 14 * * ? *)
+      Environment:
+        Variables:
+          SNS_TOPIC_ARN: !Ref SnsTopicArn
+          AWS_KEY: !Ref AwsKey
+          AWS_SECRET: !Ref AwsSecret

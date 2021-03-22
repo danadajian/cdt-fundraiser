@@ -27,10 +27,15 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
       - run:
-          name: Deploy to AWS
+          name: Deploy Web App
           command: |
-            chmod +x ./deploy.sh
-            ./deploy.sh
+            chmod +x ./deploy-web.sh
+            ./deploy-web.sh
+      - run:
+          name: Deploy Cron Job
+          command: |
+            chmod +x ./deploy-cron.sh
+            ./deploy-cron.sh
 workflows:
   deploy:
     jobs:
