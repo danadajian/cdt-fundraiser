@@ -1,5 +1,5 @@
 import {StateProps} from "../types";
-import {Button, ButtonGroup, makeStyles, TextField} from "@material-ui/core";
+import {Badge, Button, ButtonGroup, makeStyles, TextField} from "@material-ui/core";
 import {sum} from 'lodash';
 import {handlePayNowButton} from "../handlers/handlePayNowButton";
 import '../App.css';
@@ -12,7 +12,6 @@ export const PaymentSection = (props: StateProps) => {
     const [name, setName] = useState('');
     return <section className={'PaymentSection'}>
         <TextField
-            InputProps={{ className: classes.textField }}
             autoFocus
             label={'Name'}
             type={'text'}
@@ -22,10 +21,11 @@ export const PaymentSection = (props: StateProps) => {
             value={name}
             onChange={event => setName(event.target.value)}
         />
-        <h2>{`Total: $${sum(state.selectedBoxNumbers)}`}</h2>
         <ButtonGroup>
-            <Button size={'large'} color={'primary'} variant={'contained'} disableRipple={false}
-                    onClick={() => handlePayNowButton(state, name)}>Pay Now</Button>
+            <Badge classes={{ badge: classes.badge }} badgeContent={`$${sum(state.selectedBoxNumbers)}`} showZero={false} max={100000}>
+                <Button size={'large'} color={'primary'} variant={'contained'} disableRipple={false}
+                        onClick={() => handlePayNowButton(state, name)}>Pay Now</Button>
+            </Badge>
             <Button size={'large'} color={'default'} variant={'outlined'}
                     onClick={() => setState({...state, selectedBoxNumbers: []})}>Clear</Button>
         </ButtonGroup>
@@ -33,7 +33,8 @@ export const PaymentSection = (props: StateProps) => {
 };
 
 const useStyles = makeStyles({
-    textField: {
+    badge: {
+        backgroundColor: '#F90505',
         color: 'white'
     }
 });

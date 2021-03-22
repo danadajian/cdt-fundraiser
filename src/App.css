@@ -2,6 +2,11 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+}
+
+.TableContainer {
+  height: 70vh;
+  width: 100vw;
   background-image: linear-gradient(to bottom right, #53646D, #040004);
 }
 
@@ -26,5 +31,5 @@
 
 .Logo {
   margin: auto;
-  width: 50%
+  width: 50%;
 }
