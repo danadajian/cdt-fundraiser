@@ -5,7 +5,7 @@
 }
 
 .TableContainer {
-  height: 70vh;
+  height: 80vh;
   width: 100vw;
   background-image: linear-gradient(to bottom right, #53646D, #040004);
 }
@@ -13,7 +13,7 @@
 .TableContainer td {
   border: 1px solid white;
   color: white;
-  padding: 0.8rem 0.2rem;
+  padding: 0.7rem 0.1rem;
   font-weight: bold;
 }
 
