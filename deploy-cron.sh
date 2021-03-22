@@ -16,7 +16,7 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 FILE_NAME="cron-job-$TIMESTAMP.zip"
 
-zip -r -qq cron-job/"$FILE_NAME" build node_modules
+zip -r -qq cron-job/"$FILE_NAME" cron-job/build cron-job/node_modules
 echo "### Zipped $FILE_NAME successfully."
 
 aws s3 rm "s3://${BUCKET_NAME}" --recursive --exclude "*" --include "*.zip"
