@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
-npm install --prefix cron-job
-npm run build --prefix cron-job
+cd cron-job
+npm install
+npm run build
 
 BUCKET_NAME=tzedakah-boxes-cron
 
@@ -16,8 +17,6 @@ fi
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 FILE_NAME="cron-job-$TIMESTAMP.zip"
 
-cd cron-job
-
 zip -r -qq "$FILE_NAME" build node_modules
 echo "### Zipped $FILE_NAME successfully."
 
@@ -26,6 +25,7 @@ aws s3 cp "${FILE_NAME}" "s3://${BUCKET_NAME}/"
 
 SNS_TOPICS=$(aws sns list-topics)
 SNS_TOPIC_ARN=$(echo "$SNS_TOPICS" | jq -r '.Topics[] | select(.TopicArn | contains("TzedakahBoxes"))' | jq '.TopicArn' | tr -d '"')
+echo SNS_TOPIC_ARN="${SNS_TOPIC_ARN}"
 
 aws cloudformation deploy \
   --template-file template.yaml \
