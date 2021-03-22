@@ -20,7 +20,7 @@ zip -r -qq cron-job/"$FILE_NAME" build node_modules
 echo "### Zipped $FILE_NAME successfully."
 
 aws s3 rm "s3://${BUCKET_NAME}" --recursive --exclude "*" --include "*.zip"
-aws s3 cp "${FILE_NAME}" "s3://${BUCKET_NAME}/"
+aws s3 cp cron-job/"${FILE_NAME}" "s3://${BUCKET_NAME}/"
 
 SNS_TOPICS=$(aws sns list-topics)
 SNS_TOPIC_ARN=$(echo "$SNS_TOPICS" | jq -r '.Topics[] | select(.TopicArn | contains("TzedakahBoxes"))' | jq '.TopicArn' | tr -d '"')
