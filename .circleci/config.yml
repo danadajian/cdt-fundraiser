@@ -35,7 +35,9 @@ workflows:
   deploy:
     jobs:
       - deploy:
-          context: AWS
+          context:
+            - AWS
+            - TZEDAKAH_BOXES
           filters:
             branches:
               only:
