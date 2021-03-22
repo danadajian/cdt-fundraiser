@@ -6,7 +6,6 @@
 
 .TableContainer {
   height: 80vh;
-  width: 100vw;
   background-image: linear-gradient(to bottom right, #53646D, #040004);
 }
 
@@ -21,7 +20,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 5vmin 20vw;
+  margin: 2vmin 20vw;
   color: #F90505
 }
 
