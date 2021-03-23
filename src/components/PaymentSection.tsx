@@ -10,19 +10,24 @@ export const PaymentSection = (props: StateProps) => {
     const classes = useStyles();
 
     const [name, setName] = useState('');
+    const {selectedBoxNumbers} = state;
+    const shouldDisplayNameToolTip = selectedBoxNumbers.length > 0 && !name;
+    const shouldDisplaySubmitToolTip = selectedBoxNumbers.length > 0 && name.length > 0;
     return <section className={'PaymentSection'}>
-        <TextField
-            autoFocus
-            label={'Name'}
-            type={'text'}
-            fullWidth={false}
-            placeholder={'Enter Name'}
-            required
-            value={name}
-            onChange={event => setName(event.target.value)}
-        />
+        <LightTooltip title={'Type in your name.'} arrow open={shouldDisplayNameToolTip} placement={'left'}>
+            <TextField
+                autoFocus
+                label={'Name'}
+                type={'text'}
+                fullWidth={false}
+                placeholder={'Enter Name'}
+                required
+                value={name}
+                onChange={event => setName(event.target.value)}
+            />
+        </LightTooltip>
         <ButtonGroup style={{marginLeft: '0.5rem'}}>
-            <LightTooltip title={'Click "submit" when finished!'} arrow open>
+            <LightTooltip title={'Click "submit" when finished!'} arrow open={shouldDisplaySubmitToolTip} placement={'top'}>
                 <Badge classes={{ badge: classes.badge }} badgeContent={`$${sum(state.selectedBoxNumbers)}`} showZero={false} max={100000}>
                     <Button style={{backgroundColor: '#040004'}} size={'large'} color={'primary'} variant={'contained'} disableRipple={false}
                             onClick={() => handlePayNowButton(props, name)}>Submit</Button>
@@ -47,6 +52,6 @@ const LightTooltip = withStyles((theme: Theme) => ({
         backgroundColor: '#F90505',
         color: 'white',
         boxShadow: theme.shadows[1],
-        fontSize: 20,
+        fontSize: 18,
     },
 }))(Tooltip);
