@@ -17,6 +17,7 @@ export const retrieveObjectFromS3 = async (bucketName: string, fileName: string)
 export const publishToSnsTopic = async (message: string): Promise<any> => {
     const params = {
         Message: message,
+        Subject: 'Mission Possible: Status Update',
         TopicArn: process.env.SNS_TOPIC_ARN
     };
     return SNS.publish(params).promise();
