@@ -19,13 +19,13 @@
 .PaymentSection {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 2vmin 20vw;
-  color: #F90505
+  justify-content: center;
+  margin: 4rem 20vw 2vmin;
+  color: #F90505;
 }
 
-.PaymentSection > * {
-  margin-top: 0.5rem;
+.PaymentSection input {
+  min-width: 15rem;
 }
 
 .Logo {
