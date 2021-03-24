@@ -28,6 +28,10 @@
   min-width: 15rem;
 }
 
+.ButtonGroup {
+  margin-left: 0.5rem;
+}
+
 .Logo {
   margin: auto;
   width: 50%;
