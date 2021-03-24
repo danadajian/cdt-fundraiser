@@ -1,8 +1,6 @@
 #!/bin/bash -e
 
 cd cron-job
-npm install
-npm run build
 
 BUCKET_NAME=tzedakah-boxes-cron
 
