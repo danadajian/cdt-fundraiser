@@ -6,5 +6,5 @@ export const handler = () =>
         .then(result => {
             const formattedBoxes = formatBoxes(result.boxes);
             const boxesTotal = getBoxesTotal(result.boxes);
-            return publishToSnsTopic(JSON.stringify(formattedBoxes, null, 2), `A donation has been made. $${boxesTotal} Raised So Far!`);
+            return publishToSnsTopic(formattedBoxes, `A donation has been made. $${boxesTotal} Raised So Far!`);
         });
