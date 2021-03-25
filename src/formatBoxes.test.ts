@@ -1,4 +1,4 @@
-import {formatBoxes} from "../cron-job/formatBoxes";
+import {formatBoxes, getBoxesTotal} from "../cron-job/formatBoxes";
 
 describe('formatBoxes', () => {
     let result: any;
@@ -19,5 +19,23 @@ describe('formatBoxes', () => {
             {name: 'Person 2', boxes: [90, 6]},
             {name: 'Person 3', boxes: [88]}
         ]);
+    });
+});
+
+describe('getBoxesTotal', () => {
+    let result: any;
+
+    beforeEach(() => {
+        result = getBoxesTotal([
+            {name: 'Person 1', number: 1},
+            {name: 'Person 2', number: 90},
+            {name: 'Person 1', number: 300},
+            {name: 'Person 3', number: 88},
+            {name: 'Person 2', number: 6},
+        ]);
+    });
+
+    it('should return expected result', () => {
+        expect(result).toEqual(485);
     });
 });
