@@ -14,11 +14,7 @@ describe('formatBoxes', () => {
     });
 
     it('should return expected result', () => {
-        expect(result).toEqual([
-            {name: 'Person 1', boxes: [1, 300]},
-            {name: 'Person 2', boxes: [90, 6]},
-            {name: 'Person 3', boxes: [88]}
-        ]);
+        expect(result).toEqual(`Donation History:\n\nPerson 1: $1, $300\nPerson 2: $6, $90\nPerson 3: $88`);
     });
 });
 
