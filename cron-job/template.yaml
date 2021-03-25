@@ -30,7 +30,7 @@ Resources:
         InvocationLevel:
           Type: Schedule
           Properties:
-            Schedule: 'rate(10 minutes)'
+            Schedule: cron(0 14 * * ? *)
       Environment:
         Variables:
           SNS_TOPIC_ARN: !Ref SnsTopicArn
