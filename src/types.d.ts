@@ -11,7 +11,9 @@ export interface State {
 }
 
 export interface BoxesData {
-    boxes: Box[]
+    boxes: Box[];
+    latestContributor: string;
+    latestContribution: number;
 }
 
 export interface Box {

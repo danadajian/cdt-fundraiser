@@ -6,7 +6,7 @@ jest.mock("../aws/aws");
 window.alert = jest.fn();
 
 const state = {
-    selectedBoxNumbers: [69],
+    selectedBoxNumbers: [69, 420],
     boxesTaken: [
         {name: 'Person 1', number: 1},
         {name: 'Person 2', number: 90},
@@ -40,14 +40,19 @@ describe('handlePayNowButton', () => {
         });
 
         it('should call uploadObjectToS3 with correct params', () => {
-            expect(uploadObjectToS3).toHaveBeenCalledWith({boxes: [
+            expect(uploadObjectToS3).toHaveBeenCalledWith({
+                boxes: [
                     {name: 'Person 1', number: 1},
                     {name: 'Person 2', number: 90},
                     {name: 'Person 1', number: 300},
                     {name: 'Person 3', number: 88},
                     {name: 'Person 2', number: 6},
-                    {name, number: 69}
-                ]}, BOXES_BUCKET_NAME, BOXES_TAKEN_FILE_NAME);
+                    {name, number: 69},
+                    {name, number: 420}
+                ],
+                latestContributor: name,
+                latestContribution: 489
+            }, BOXES_BUCKET_NAME, BOXES_TAKEN_FILE_NAME);
         });
     });
 
