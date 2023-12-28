@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  tzedakah-boxes-test-db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tzedakah-boxes-test
+      POSTGRES_PASSWORD: pwd
+      POSTGRES_USER: postgres
+    ports:
+      - "5433:5432"

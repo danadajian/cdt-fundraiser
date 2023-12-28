@@ -1,5 +1,12 @@
-import { resolve } from "path"
+import { type } from "arktype";
 
-import { config } from "dotenv"
-
-config({ path: resolve(__dirname, "../.env") });
+export const envSchema = type({
+  "PORT?": "string",
+  "ENVIRONMENT?": "'development' | 'production'",
+  POSTGRES_URL: "string",
+});
+const { data, problems } = envSchema(process.env);
+if (problems) {
+  throw new Error(`Environment schema invalid. ${problems.summary}`);
+}
+export const environmentVariables = data;

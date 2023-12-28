@@ -1,46 +1,52 @@
 {
   "name": "tzedakah-boxes",
-  "version": "0.1.0",
-  "private": true,
+  "packageManager": "bun@1.0.20",
+  "scripts": {
+    "db": "docker-compose up -d",
+    "dev": "POSTGRES_URL=postgresql://postgres:pwd@localhost:5433/tzedakah-boxes-test ENVIRONMENT=development bun --hot ./src/server.tsx",
+    "drizzle": "drizzle-kit push:pg",
+    "e2e": "bun dev & cypress run",
+    "format": "prettier --write . && terraform fmt terraform",
+    "format-check": "prettier --check . && terraform fmt -check terraform",
+    "lint": "eslint . --fix --max-warnings=0",
+    "preprod": "tailwindcss -o ./public/globals.css",
+    "prod": "ENVIRONMENT=production bun ./src/server.tsx",
+    "tdd": "bun dev & cypress open --e2e --browser chrome",
+    "typecheck": "tsc"
+  },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "aws-sdk": "^2.843.0",
-    "lodash": "^4.17.20",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.2",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "@elysiajs/static": "0.8.1",
+    "@headlessui/react": "1.7.17",
+    "@tanstack/react-query": "5.15.0",
+    "@trpc/client": "next",
+    "@trpc/react-query": "next",
+    "@trpc/server": "next",
+    "drizzle-orm": "0.29.2",
+    "elysia": "0.8.5",
+    "elysia-hot-module-reload": "1.0.1",
+    "elysia-rate-limit": "2.0.1",
+    "postgres": "3.4.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-error-boundary": "4.0.12"
   },
   "devDependencies": {
-    "@types/aws-sdk": "^2.7.0",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@testing-library/cypress": "10.0.1",
+    "@types/react": "18.2.45",
+    "@types/react-dom": "18.2.18",
+    "@types/testing-library__cypress": "5.0.13",
+    "@typescript-eslint/eslint-plugin": "6.16.0",
+    "arktype": "1.0.28-alpha",
+    "bun-types": "1.0.20",
+    "cypress": "13.6.2",
+    "drizzle-kit": "0.20.9",
+    "eslint": "8.56.0",
+    "eslint-plugin-no-only-tests": "3.1.0",
+    "eslint-plugin-simple-import-sort": "10.0.0",
+    "husky": "8.0.3",
+    "prettier": "3.1.1",
+    "prettier-plugin-tailwindcss": "0.5.9",
+    "tailwindcss": "3.4.0",
+    "typescript": "5.3.3"
   }
 }
