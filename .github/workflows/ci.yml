@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 
 on:
   workflow_dispatch:
@@ -11,8 +11,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  test:
-    name: Test
+  ci:
+    name: Test and Update DB
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -35,16 +35,6 @@ jobs:
       - run: bun typecheck
       - run: bun test
       - run: bun e2e
-
-  db:
-    name: Database Update
-    runs-on: ubuntu-latest
-    needs:
-      - test
-    steps:
-      - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
-      - run: bun install
       - run: bun drizzle
         env:
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}

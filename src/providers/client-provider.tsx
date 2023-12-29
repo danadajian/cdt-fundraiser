@@ -27,7 +27,7 @@ export const ClientProvider = ({ children }: PropsWithChildren) => {
     trpc.createClient({
       links: [
         httpBatchLink({
-          url: "http://localhost:8080/trpc",
+          url: "/trpc",
         }),
       ],
     }),
