@@ -3,11 +3,11 @@ resource "aws_s3_bucket" "db_backup_bucket" {
 }
 
 resource "aws_iam_user" "db_backup_user" {
-  name = "db-backup-user"
+  name = "tzedakah-boxes-db-backup-user"
 }
 
 resource "aws_iam_policy" "db_backup_policy" {
-  name = "db-backup-policy"
+  name = "tzedakah-boxes-db-backup-policy"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
