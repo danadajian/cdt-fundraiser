@@ -43,4 +43,32 @@ describe("boxes", () => {
       .and("have.prop", "href", "https://www.dortamid.org/missionpossible2")
       .and("have.prop", "target", "_blank");
   });
+
+  it("notifies me each time I spend $50 and earn a raffle ticket", () => {
+    cy.findByText("Raffle tickets earned: 0").should("be.visible");
+    cy.findByRole("button", { name: "$25" }).click();
+    cy.findByRole("button", { name: "$24" }).click();
+    cy.findByText("Raffle tickets earned: 0").should("be.visible");
+    cy.findByRole("button", { name: "$2" }).click();
+    cy.findByText("Raffle tickets earned: 1").should("be.visible");
+    cy.findByRole("button", { name: "$100" }).click();
+    cy.findByText("Raffle tickets earned: 3").should("be.visible");
+    cy.findByRole("button", { name: "$25" }).click();
+    cy.findByText("Raffle tickets earned: 2").should("be.visible");
+  });
+
+  it("notifies me when I am close to earning another raffle ticket", () => {
+    cy.findByRole("button", { name: "$39" }).click();
+    cy.findByText(/You are.*away from earning a raffle ticket!/).should(
+      "not.exist",
+    );
+    cy.findByRole("button", { name: "$1" }).click();
+    cy.findByText("You are $10 away from earning a raffle ticket!").should(
+      "be.visible",
+    );
+    cy.findByRole("button", { name: "$10" }).click();
+    cy.findByText(/You are.*away from earning a raffle ticket!/).should(
+      "not.exist",
+    );
+  });
 });

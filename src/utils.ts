@@ -5,3 +5,7 @@ export function reversedRange(length: number) {
 export function sum(array: number[]) {
   return array.reduce((a, b) => a + b, 0);
 }
+
+export function countRaffleTickets(donationAmount: number) {
+  return Math.floor(donationAmount / 50);
+}

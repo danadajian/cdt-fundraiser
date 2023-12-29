@@ -3,17 +3,23 @@ import { useContext, useState } from "react";
 
 import { Dialog } from "./dialog";
 import { BoxesContext } from "./providers/boxes-provider";
-import { sum } from "./utils";
 
 export function Payment() {
-  const { selectedBoxes } = useContext(BoxesContext);
+  const { selectedBoxes, donationAmount } = useContext(BoxesContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
-  const totalAmountString = `Total amount: $${sum(selectedBoxes)}`;
+  const amountToEarnAnotherRaffleTicket = 50 - (donationAmount % 50);
+  const isCloseToEarningARaffleTicket = amountToEarnAnotherRaffleTicket <= 10;
 
   return (
     <>
-      <p>{totalAmountString}</p>
+      {isCloseToEarningARaffleTicket && (
+        <p>
+          You are ${amountToEarnAnotherRaffleTicket} away from earning a raffle
+          ticket!
+        </p>
+      )}
+      <Results />
       <input
         className="text-center"
         type="text"
@@ -35,7 +41,7 @@ export function Payment() {
           >
             Agent {name}: You've helped us complete the mission!
           </HeadlessUiDialog.Title>
-          <h3>{totalAmountString}</h3>
+          <Results />
           <HeadlessUiDialog.Description className="pt-5 font-semibold text-slate-500">
             Your squares have been reserved. Remember your total amount and
             enter it on the next page.
@@ -47,6 +53,16 @@ export function Payment() {
           </button>
         </>
       </Dialog>
+    </>
+  );
+}
+
+function Results() {
+  const { donationAmount, raffleTicketCount } = useContext(BoxesContext);
+  return (
+    <>
+      <p>Total amount: ${donationAmount}</p>
+      <p>Raffle tickets earned: {raffleTicketCount}</p>
     </>
   );
 }
