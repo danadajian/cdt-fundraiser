@@ -17,7 +17,7 @@ export const App = () => {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
         <link rel="stylesheet" href="/public/globals.css" />
-        <title>Tzedakah Boxes</title>
+        <title>CDT Fundraiser</title>
       </head>
       <body>
         <ErrorBoundary
