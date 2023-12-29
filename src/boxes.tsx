@@ -1,17 +1,15 @@
+import { useContext } from "react";
+
 import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "./constants";
+import { BoxesContext } from "./providers/boxes-provider";
 import { reversedRange } from "./utils";
 
 export function getBoxes() {
   return {};
 }
 
-export function Boxes({
-  selectedBoxes,
-  setSelectedBoxes,
-}: {
-  selectedBoxes: number[];
-  setSelectedBoxes: (selectedBoxes: number[]) => void;
-}) {
+export function Boxes() {
+  const { selectedBoxes, setSelectedBoxes } = useContext(BoxesContext);
   function onClick(boxAmount: number) {
     const newBoxes = selectedBoxes.includes(boxAmount)
       ? selectedBoxes.filter((amount) => amount !== boxAmount)
@@ -30,11 +28,11 @@ export function Boxes({
                   (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
                 const boxColor = selectedBoxes.includes(boxAmount)
                   ? "bg-red-800"
-                  : "bg-red-400";
+                  : "bg-red-500";
                 return (
                   <td
                     key={columnNumber}
-                    className={`border-2 border-black p-1 ${boxColor} hover:bg-red-900`}
+                    className={`border-2 border-black p-1 ${boxColor} hover:bg-red-300`}
                   >
                     <button
                       onClick={() => onClick(boxAmount)}
