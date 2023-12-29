@@ -21,4 +21,26 @@ describe("boxes", () => {
     cy.get("@box1").click();
     cy.findByText("Total amount: $10").should("be.visible");
   });
+
+  it("cannot proceed to checkout if I have no boxes", () => {
+    cy.findByRole("button", { name: "Pay Now" }).should("be.disabled");
+  });
+
+  it("cannot proceed to checkout if I have some boxes but no name", () => {
+    cy.findByRole("button", { name: "$5" }).click();
+    cy.findByRole("button", { name: "$10" }).click();
+    cy.findByRole("button", { name: "Pay Now" }).should("be.disabled");
+  });
+
+  it("can proceed to checkout if I have some boxes and have entered my name", () => {
+    cy.findByRole("button", { name: "$5" }).click();
+    cy.findByRole("button", { name: "$10" }).click();
+    cy.findByPlaceholderText("Type your name here").type("My Name");
+    cy.findByRole("button", { name: "Pay Now" }).should("be.enabled").click();
+    cy.findByRole("heading", { name: /You've helped us/ }).should("be.visible");
+    cy.findByRole("link", { name: /Click here to continue/ })
+      .should("be.visible")
+      .and("have.prop", "href", "https://www.dortamid.org/missionpossible2")
+      .and("have.prop", "target", "_blank");
+  });
 });
