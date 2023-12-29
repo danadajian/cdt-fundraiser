@@ -17,6 +17,7 @@ export function Payment() {
     amountToEarnAnotherRaffleTicket <= RAFFLE_TICKET_ALERT_THRESHOLD;
 
   const { mutate: purchaseBoxes } = trpc.purchaseBoxes.useMutation({
+    throwOnError: true,
     onSuccess: () => setIsFinishedPicking(true),
   });
 
