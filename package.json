@@ -3,9 +3,9 @@
   "packageManager": "bun@1.0.20",
   "scripts": {
     "db": "docker-compose up -d",
-    "dev": "POSTGRES_URL=postgresql://postgres:pwd@localhost:5433/cdt-fundraiser-test ENVIRONMENT=development bun ./scripts/clear-db.ts && bun --hot ./src/server.tsx",
+    "dev": "bun ./scripts/clear-db.ts && bun --hot ./src/server.tsx",
     "drizzle": "drizzle-kit push:pg",
-    "e2e": "bun dev & cypress run",
+    "e2e": "bun drizzle && bun dev & cypress run",
     "format": "prettier --write . && terraform fmt terraform",
     "format-check": "prettier --check . && terraform fmt -check terraform",
     "lint": "eslint . --fix --max-warnings=0",

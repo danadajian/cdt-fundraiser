@@ -23,6 +23,9 @@ jobs:
           POSTGRES_USER: postgres
         ports:
           - 5433:5432
+    env:
+      ENVIRONMENT: development
+      POSTGRES_URL: postgresql://postgres:pwd@localhost:5433/cdt-fundraiser-test
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
