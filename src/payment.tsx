@@ -1,3 +1,5 @@
+import { sum } from "./utils";
+
 export function Payment({ selectedBoxes }: { selectedBoxes: number[] }) {
-  return <p>Total amount: ${selectedBoxes.reduce((a, b) => a + b, 0)}</p>;
+  return <p>Total amount: ${sum(selectedBoxes)}</p>;
 }

@@ -1,11 +1,8 @@
 import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "./constants";
+import { reversedRange } from "./utils";
 
 export function getBoxes() {
   return {};
-}
-
-function range(length: number) {
-  return Array.from({ length }, (_, i) => i + 1).reverse();
 }
 
 export function Boxes({
@@ -16,20 +13,19 @@ export function Boxes({
   setSelectedBoxes: (selectedBoxes: number[]) => void;
 }) {
   function onClick(boxAmount: number) {
-    if (selectedBoxes.includes(boxAmount)) {
-      setSelectedBoxes(selectedBoxes.filter((amount) => amount !== boxAmount));
-    } else {
-      setSelectedBoxes(selectedBoxes.concat(boxAmount));
-    }
+    const newBoxes = selectedBoxes.includes(boxAmount)
+      ? selectedBoxes.filter((amount) => amount !== boxAmount)
+      : selectedBoxes.concat(boxAmount);
+    setSelectedBoxes(newBoxes);
   }
 
   return (
     <>
       <table className="table-auto">
         <tbody>
-          {range(NUMBER_OF_ROWS).map((rowNumber) => (
+          {reversedRange(NUMBER_OF_ROWS).map((rowNumber) => (
             <tr key={rowNumber}>
-              {range(NUMBER_OF_COLUMNS).map((columnNumber) => {
+              {reversedRange(NUMBER_OF_COLUMNS).map((columnNumber) => {
                 const boxAmount =
                   (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
                 const boxColor = selectedBoxes.includes(boxAmount)
