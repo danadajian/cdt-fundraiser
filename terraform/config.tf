@@ -4,8 +4,8 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "tzedakah-boxes-terraform-us-east-2"
-    key    = "tzedakah-boxes"
+    bucket = "cdt-fundraiser-terraform-us-east-2"
+    key    = "cdt-fundraiser"
     region = "us-east-2"
   }
 }

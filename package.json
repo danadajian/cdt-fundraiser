@@ -1,9 +1,9 @@
 {
-  "name": "tzedakah-boxes",
+  "name": "cdt-fundraiser",
   "packageManager": "bun@1.0.20",
   "scripts": {
     "db": "docker-compose up -d",
-    "dev": "POSTGRES_URL=postgresql://postgres:pwd@localhost:5433/tzedakah-boxes-test ENVIRONMENT=development bun --hot ./src/server.tsx",
+    "dev": "POSTGRES_URL=postgresql://postgres:pwd@localhost:5433/cdt-fundraiser-test ENVIRONMENT=development bun --hot ./src/server.tsx",
     "drizzle": "drizzle-kit push:pg",
     "e2e": "bun dev & cypress run",
     "format": "prettier --write . && terraform fmt terraform",
@@ -24,7 +24,6 @@
     "drizzle-orm": "0.29.2",
     "elysia": "0.8.5",
     "elysia-hot-module-reload": "1.0.1",
-    "elysia-rate-limit": "2.0.1",
     "postgres": "3.4.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -18,7 +18,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: tzedakah-boxes-test
+          POSTGRES_DB: cdt-fundraiser-test
           POSTGRES_PASSWORD: pwd
           POSTGRES_USER: postgres
         ports:

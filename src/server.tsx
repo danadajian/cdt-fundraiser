@@ -1,7 +1,6 @@
 import { staticPlugin } from "@elysiajs/static";
 import Elysia from "elysia";
 import { HotModuleReload, hotModuleReload } from "elysia-hot-module-reload";
-import { rateLimit } from "elysia-rate-limit";
 import React from "react";
 import { renderToReadableStream } from "react-dom/server";
 
@@ -39,7 +38,6 @@ const app = new Elysia()
       headers: { "Content-Type": "text/html" },
     });
   })
-  .use(rateLimit({ max: 1000 }))
   .use(trpcRouter(appRouter))
   .use(staticPlugin())
   .listen(environmentVariables.PORT ?? 8080);

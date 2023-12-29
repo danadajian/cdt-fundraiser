@@ -1,13 +1,13 @@
 resource "aws_s3_bucket" "db_backup_bucket" {
-  bucket = "tzedakah-boxes-db-backup"
+  bucket = "cdt-fundraiser-db-backup"
 }
 
 resource "aws_iam_user" "db_backup_user" {
-  name = "tzedakah-boxes-db-backup-user"
+  name = "cdt-fundraiser-db-backup-user"
 }
 
 resource "aws_iam_policy" "db_backup_policy" {
-  name = "tzedakah-boxes-db-backup-policy"
+  name = "cdt-fundraiser-db-backup-policy"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [

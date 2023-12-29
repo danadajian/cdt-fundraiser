@@ -39,7 +39,7 @@ jobs:
             aws s3 mb s3://"${BUCKET_NAME}"
           fi
         env:
-          BUCKET_NAME: tzedakah-boxes-terraform-us-east-2
+          BUCKET_NAME: cdt-fundraiser-terraform-us-east-2
 
       - name: Setup
         uses: hashicorp/setup-terraform@v2

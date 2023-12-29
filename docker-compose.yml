@@ -1,10 +1,10 @@
 version: "3"
 
 services:
-  tzedakah-boxes-test-db:
+  cdt-fundraiser-test-db:
     image: postgres:16
     environment:
-      POSTGRES_DB: tzedakah-boxes-test
+      POSTGRES_DB: cdt-fundraiser-test
       POSTGRES_PASSWORD: pwd
       POSTGRES_USER: postgres
     ports:
