@@ -2,11 +2,8 @@ import { useContext } from "react";
 
 import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "./constants";
 import { BoxesContext } from "./providers/boxes-provider";
+import { trpc } from "./trpc";
 import { reversedRange } from "./utils";
-
-export function getBoxes() {
-  return {};
-}
 
 export function Boxes() {
   const { selectedBoxes, setSelectedBoxes } = useContext(BoxesContext);
@@ -16,6 +13,8 @@ export function Boxes() {
       : selectedBoxes.concat(boxAmount);
     setSelectedBoxes(newBoxes);
   }
+
+  const [boxesTaken] = trpc.getBoxes.useSuspenseQuery();
 
   return (
     <>
@@ -29,12 +28,19 @@ export function Boxes() {
                 const boxColor = selectedBoxes.includes(boxAmount)
                   ? "bg-red-800"
                   : "bg-red-500";
+                const boxDisabled = Boolean(
+                  boxesTaken.find(({ amount }) => amount === boxAmount),
+                );
+                const boxHover = boxDisabled
+                  ? "bg-slate-400"
+                  : "hover:bg-red-300";
                 return (
                   <td
                     key={columnNumber}
-                    className={`border-2 border-black p-1 ${boxColor} hover:bg-red-300`}
+                    className={`border-2 border-black p-1 ${boxColor} ${boxHover}`}
                   >
                     <button
+                      disabled={boxDisabled}
                       onClick={() => onClick(boxAmount)}
                       className="w-full"
                     >

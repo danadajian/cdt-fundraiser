@@ -6,20 +6,20 @@ export type BaseImageStateProvider = {
   selectedBoxes: number[];
   setSelectedBoxes: (selectedBoxes: number[]) => void;
   donationAmount: number;
-  raffleTicketCount: number;
+  raffleTicketsEarned: number;
 };
 
 export const BoxesContext = createContext<BaseImageStateProvider>({
   selectedBoxes: [],
   setSelectedBoxes: () => null,
   donationAmount: 0,
-  raffleTicketCount: 0,
+  raffleTicketsEarned: 0,
 });
 
 export function BoxesProvider({ children }: PropsWithChildren) {
   const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
   const donationAmount = sum(selectedBoxes);
-  const raffleTicketCount = countRaffleTickets(donationAmount);
+  const raffleTicketsEarned = countRaffleTickets(donationAmount);
 
   return (
     <BoxesContext.Provider
@@ -27,7 +27,7 @@ export function BoxesProvider({ children }: PropsWithChildren) {
         selectedBoxes,
         setSelectedBoxes,
         donationAmount,
-        raffleTicketCount,
+        raffleTicketsEarned,
       }}
     >
       {children}

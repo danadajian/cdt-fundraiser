@@ -4,15 +4,21 @@ import { useContext, useState } from "react";
 import { RAFFLE_TICKET_ALERT_THRESHOLD, RAFFLE_TICKET_COST } from "./constants";
 import { Dialog } from "./dialog";
 import { BoxesContext } from "./providers/boxes-provider";
+import { trpc } from "./trpc";
 
 export function Payment() {
-  const { selectedBoxes, donationAmount } = useContext(BoxesContext);
+  const { selectedBoxes, donationAmount, raffleTicketsEarned } =
+    useContext(BoxesContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
   const amountToEarnAnotherRaffleTicket =
     RAFFLE_TICKET_COST - (donationAmount % RAFFLE_TICKET_COST);
   const isCloseToEarningARaffleTicket =
     amountToEarnAnotherRaffleTicket <= RAFFLE_TICKET_ALERT_THRESHOLD;
+
+  const { mutate: purchaseBoxes } = trpc.purchaseBoxes.useMutation({
+    onSuccess: () => setIsFinishedPicking(true),
+  });
 
   return (
     <>
@@ -32,7 +38,13 @@ export function Payment() {
       />
       <button
         disabled={!selectedBoxes.length || !name}
-        onClick={() => setIsFinishedPicking(true)}
+        onClick={() =>
+          purchaseBoxes({
+            name,
+            selectedBoxes,
+            raffleTicketsEarned,
+          })
+        }
       >
         Pay Now
       </button>
@@ -61,11 +73,11 @@ export function Payment() {
 }
 
 function Results() {
-  const { donationAmount, raffleTicketCount } = useContext(BoxesContext);
+  const { donationAmount, raffleTicketsEarned } = useContext(BoxesContext);
   return (
     <>
       <p>Total amount: ${donationAmount}</p>
-      <p>Raffle tickets earned: {raffleTicketCount}</p>
+      <p>Raffle tickets earned: {raffleTicketsEarned}</p>
     </>
   );
 }
