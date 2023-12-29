@@ -1,11 +1,14 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { Boxes } from "./boxes";
 import { ClientProvider } from "./components/client-provider";
 import { ErrorPage } from "./components/error";
+import { Payment } from "./payment";
 
 export const App = () => {
+  const [selectedBoxes, setSelectedBoxes] = useState<number[]>([]);
+
   return (
     <html lang="en">
       <head>
@@ -26,7 +29,11 @@ export const App = () => {
           <ClientProvider>
             <Suspense fallback={<div>Loading</div>}>
               <div className="flex flex-col items-center pt-16 text-center">
-                <Boxes />
+                <Boxes
+                  selectedBoxes={selectedBoxes}
+                  setSelectedBoxes={setSelectedBoxes}
+                />
+                <Payment selectedBoxes={selectedBoxes} />
               </div>
             </Suspense>
           </ClientProvider>
