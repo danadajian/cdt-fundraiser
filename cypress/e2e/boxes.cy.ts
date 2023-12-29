@@ -44,7 +44,7 @@ describe("boxes", () => {
       .and("have.prop", "target", "_blank");
   });
 
-  it("notifies me each time I spend $50 and earn a raffle ticket", () => {
+  it("notifies me each time I earn a raffle ticket", () => {
     cy.findByText("Raffle tickets earned: 0").should("be.visible");
     cy.findByRole("button", { name: "$25" }).click();
     cy.findByRole("button", { name: "$24" }).click();

@@ -1,6 +1,7 @@
 import { Dialog as HeadlessUiDialog } from "@headlessui/react";
 import { useContext, useState } from "react";
 
+import { RAFFLE_TICKET_ALERT_THRESHOLD, RAFFLE_TICKET_COST } from "./constants";
 import { Dialog } from "./dialog";
 import { BoxesContext } from "./providers/boxes-provider";
 
@@ -8,8 +9,10 @@ export function Payment() {
   const { selectedBoxes, donationAmount } = useContext(BoxesContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
-  const amountToEarnAnotherRaffleTicket = 50 - (donationAmount % 50);
-  const isCloseToEarningARaffleTicket = amountToEarnAnotherRaffleTicket <= 10;
+  const amountToEarnAnotherRaffleTicket =
+    RAFFLE_TICKET_COST - (donationAmount % RAFFLE_TICKET_COST);
+  const isCloseToEarningARaffleTicket =
+    amountToEarnAnotherRaffleTicket <= RAFFLE_TICKET_ALERT_THRESHOLD;
 
   return (
     <>
