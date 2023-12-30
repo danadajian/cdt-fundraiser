@@ -4,11 +4,10 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import React, { useContext } from "react";
+import React from "react";
 import { type PropsWithChildren, useState } from "react";
 
 import { trpc } from "../trpc";
-import { BaseUrlContext } from "./base-url-provider";
 
 export const TrpcProvider = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(
@@ -24,7 +23,8 @@ export const TrpcProvider = ({ children }: PropsWithChildren) => {
         },
       }),
   );
-  const baseUrl = useContext(BaseUrlContext);
+  const baseUrl =
+    typeof window === "undefined" ? `http://localhost:${process.env.PORT}` : "";
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
