@@ -1,8 +1,8 @@
 import { type } from "arktype";
 
 export const envSchema = type({
-  "PORT?": "string",
   "ENVIRONMENT?": "'development' | 'production'",
+  PORT: "string",
   POSTGRES_URL: "string",
 });
 const { data, problems } = envSchema(process.env);

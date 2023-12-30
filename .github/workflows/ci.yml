@@ -25,6 +25,7 @@ jobs:
           - 5433:5432
     env:
       ENVIRONMENT: development
+      PORT: 8080
       POSTGRES_URL: postgresql://postgres:pwd@localhost:5433/cdt-fundraiser-test
     steps:
       - uses: actions/checkout@v4

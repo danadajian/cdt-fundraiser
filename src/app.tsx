@@ -5,7 +5,7 @@ import { Boxes } from "./boxes";
 import { ErrorPage } from "./error";
 import { Payment } from "./payment";
 import { BoxesProvider } from "./providers/boxes-provider";
-import { ClientProvider } from "./providers/client-provider";
+import { TrpcProvider } from "./providers/trpc-provider";
 
 export const App = () => {
   return (
@@ -25,7 +25,7 @@ export const App = () => {
         <ErrorBoundary
           fallbackRender={({ error }) => <ErrorPage error={error as Error} />}
         >
-          <ClientProvider>
+          <TrpcProvider>
             <Suspense fallback={<div>Loading</div>}>
               <div className="flex flex-col items-center pt-16 text-center">
                 <BoxesProvider>
@@ -34,7 +34,7 @@ export const App = () => {
                 </BoxesProvider>
               </div>
             </Suspense>
-          </ClientProvider>
+          </TrpcProvider>
         </ErrorBoundary>
       </body>
     </html>

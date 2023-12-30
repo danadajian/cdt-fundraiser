@@ -6,6 +6,7 @@ import { renderToReadableStream } from "react-dom/server";
 
 import { App } from "./app";
 import { environmentVariables } from "./env";
+import { BaseUrlProvider } from "./providers/base-url-provider";
 import { appRouter } from "./router";
 import { trpcRouter } from "./trpc";
 
@@ -22,7 +23,11 @@ const app = new Elysia()
   .get("*", async () => {
     const stream = await renderToReadableStream(
       <>
-        <App />
+        <BaseUrlProvider
+          value={`http://localhost:${environmentVariables.PORT}`}
+        >
+          <App />
+        </BaseUrlProvider>
         {isDev && (
           <>
             <script src="https://cdn.tailwindcss.com" />
@@ -40,7 +45,7 @@ const app = new Elysia()
   })
   .use(trpcRouter(appRouter))
   .use(staticPlugin())
-  .listen(environmentVariables.PORT ?? 8080);
+  .listen(environmentVariables.PORT);
 
 if (isDev) {
   app.use(hotModuleReload());
