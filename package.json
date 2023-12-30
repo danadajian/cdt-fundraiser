@@ -2,7 +2,7 @@
   "name": "cdt-fundraiser",
   "packageManager": "bun@1.0.20",
   "scripts": {
-    "db": "docker-compose up -d",
+    "db": "docker-compose up -d && bun drizzle",
     "dev": "bun ./scripts/clear-db.ts && bun --hot ./src/server.tsx",
     "drizzle": "drizzle-kit push:pg",
     "e2e": "bun drizzle && bun dev & cypress run",
