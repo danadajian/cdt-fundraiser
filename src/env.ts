@@ -1,12 +1,22 @@
 import { type } from "arktype";
 
-export const envSchema = type({
+const envSchema = type({
   "ENVIRONMENT?": "'development' | 'production'",
   PORT: "string",
   POSTGRES_URL: "string",
 });
-const { data, problems } = envSchema(process.env);
-if (problems) {
-  throw new Error(`Environment schema invalid. ${problems.summary}`);
+
+type EnvSchema = typeof envSchema.infer;
+declare global {
+  namespace NodeJS {
+    // eslint-disable-next-line
+    interface ProcessEnv extends EnvSchema {}
+  }
 }
-export const environmentVariables = data;
+
+export function validateEnvironmentVariables() {
+  const { problems } = envSchema(process.env);
+  if (problems) {
+    throw new Error(`Environment schema invalid. ${problems.summary}`);
+  }
+}

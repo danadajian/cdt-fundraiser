@@ -5,9 +5,11 @@ import React from "react";
 import { renderToReadableStream } from "react-dom/server";
 
 import { App } from "./app";
-import { environmentVariables } from "./env";
+import { validateEnvironmentVariables } from "./env";
 import { appRouter } from "./router";
 import { trpcRouter } from "./trpc";
+
+validateEnvironmentVariables();
 
 await Bun.build({
   entrypoints: ["./src/client.tsx"],
@@ -15,7 +17,7 @@ await Bun.build({
   minify: true,
 });
 
-const isDev = environmentVariables.ENVIRONMENT === "development";
+const isDev = process.env.ENVIRONMENT === "development";
 
 const app = new Elysia()
   .get("/health", () => "all good")
@@ -40,7 +42,7 @@ const app = new Elysia()
   })
   .use(trpcRouter(appRouter))
   .use(staticPlugin())
-  .listen(environmentVariables.PORT);
+  .listen(process.env.PORT);
 
 if (isDev) {
   app.use(hotModuleReload());

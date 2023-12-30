@@ -22,6 +22,7 @@ const config = {
     "no-console": "error",
     "simple-import-sort/imports": "error",
     "no-only-tests/no-only-tests": "error",
+    "@typescript-eslint/no-namespace": "off",
   },
   ignorePatterns: ["public", "scripts"],
 };
