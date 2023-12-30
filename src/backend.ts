@@ -3,6 +3,7 @@ import { type } from "arktype";
 
 import { db } from "./db";
 import { boxesTable } from "./schema";
+import { countRaffleTickets } from "./utils";
 
 export function getBoxes() {
   return db.query.boxesTable.findMany();
@@ -11,13 +12,11 @@ export function getBoxes() {
 export const purchaseBoxesInput = type({
   name: "string>0",
   selectedBoxes: "number[]>0",
-  raffleTicketsEarned: "number",
 });
 
 export async function purchaseBoxes({
   name,
   selectedBoxes,
-  raffleTicketsEarned,
 }: typeof purchaseBoxesInput.infer) {
   const boxes = await getBoxes();
   const boxesAlreadyTaken = boxes
@@ -33,7 +32,7 @@ export async function purchaseBoxes({
     selectedBoxes.map((amount) => ({
       name,
       amount,
-      raffleTicketsEarned,
+      raffleTicketsEarned: countRaffleTickets(amount),
     })),
   );
 }

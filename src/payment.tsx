@@ -7,8 +7,7 @@ import { BoxesContext } from "./providers/boxes-provider";
 import { trpc } from "./trpc";
 
 export function Payment() {
-  const { selectedBoxes, donationAmount, raffleTicketsEarned } =
-    useContext(BoxesContext);
+  const { selectedBoxes, donationAmount } = useContext(BoxesContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
   const amountToEarnAnotherRaffleTicket =
@@ -43,7 +42,6 @@ export function Payment() {
           purchaseBoxes({
             name,
             selectedBoxes,
-            raffleTicketsEarned,
           })
         }
       >
