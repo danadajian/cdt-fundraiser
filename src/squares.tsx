@@ -1,20 +1,20 @@
 import { useContext } from "react";
 
 import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "./constants";
-import { BoxesContext } from "./providers/boxes-provider";
+import { SquaresContext } from "./providers/squares-provider";
 import { trpc } from "./trpc";
 import { reversedRange } from "./utils";
 
-export function Boxes() {
-  const { selectedBoxes, setSelectedBoxes } = useContext(BoxesContext);
-  function onClick(boxAmount: number) {
-    const newBoxes = selectedBoxes.includes(boxAmount)
-      ? selectedBoxes.filter((amount) => amount !== boxAmount)
-      : selectedBoxes.concat(boxAmount);
-    setSelectedBoxes(newBoxes);
+export function Squares() {
+  const { selectedSquares, setSelectedSquares } = useContext(SquaresContext);
+  function onClick(squareAmount: number) {
+    const newSquares = selectedSquares.includes(squareAmount)
+      ? selectedSquares.filter((amount) => amount !== squareAmount)
+      : selectedSquares.concat(squareAmount);
+    setSelectedSquares(newSquares);
   }
 
-  const [boxesTaken] = trpc.getBoxes.useSuspenseQuery();
+  const [squaresTaken] = trpc.getSquares.useSuspenseQuery();
 
   return (
     <>
@@ -23,28 +23,28 @@ export function Boxes() {
           {reversedRange(NUMBER_OF_ROWS).map((rowNumber) => (
             <tr key={rowNumber}>
               {reversedRange(NUMBER_OF_COLUMNS).map((columnNumber) => {
-                const boxAmount =
+                const squareAmount =
                   (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
-                const boxColor = selectedBoxes.includes(boxAmount)
+                const squareColor = selectedSquares.includes(squareAmount)
                   ? "bg-red-800"
                   : "bg-red-500";
-                const boxDisabled = Boolean(
-                  boxesTaken.find(({ amount }) => amount === boxAmount),
+                const squareDisabled = Boolean(
+                  squaresTaken.find(({ amount }) => amount === squareAmount),
                 );
-                const boxHover = boxDisabled
+                const squareHover = squareDisabled
                   ? "bg-slate-400"
                   : "hover:bg-red-300";
                 return (
                   <td
                     key={columnNumber}
-                    className={`border-2 border-black p-1 ${boxColor} ${boxHover}`}
+                    className={`border-2 border-black p-1 ${squareColor} ${squareHover}`}
                   >
                     <button
-                      disabled={boxDisabled}
-                      onClick={() => onClick(boxAmount)}
+                      disabled={squareDisabled}
+                      onClick={() => onClick(squareAmount)}
                       className="w-full"
                     >
-                      ${boxAmount}
+                      ${squareAmount}
                     </button>
                   </td>
                 );

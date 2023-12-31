@@ -6,7 +6,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const boxesTable = pgTable("boxes", {
+export const squaresTable = pgTable("squares", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 256 }).notNull(),
   amount: integer("amount").notNull(),

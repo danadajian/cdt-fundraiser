@@ -2,34 +2,34 @@ import { TRPCError } from "@trpc/server";
 import { type } from "arktype";
 
 import { db } from "./db";
-import { boxesTable } from "./schema";
+import { squaresTable } from "./schema";
 import { countRaffleTickets } from "./utils";
 
-export function getBoxes() {
-  return db.query.boxesTable.findMany();
+export function getSquares() {
+  return db.query.squaresTable.findMany();
 }
 
-export const purchaseBoxesInput = type({
+export const purchaseSquaresInput = type({
   name: "string>0",
-  selectedBoxes: "number[]>0",
+  selectedSquares: "number[]>0",
 });
 
-export async function purchaseBoxes({
+export async function purchaseSquares({
   name,
-  selectedBoxes,
-}: typeof purchaseBoxesInput.infer) {
-  const boxes = await getBoxes();
-  const boxesAlreadyTaken = boxes
-    .filter(({ amount }) => selectedBoxes.includes(amount))
+  selectedSquares,
+}: typeof purchaseSquaresInput.infer) {
+  const squares = await getSquares();
+  const squaresAlreadyTaken = squares
+    .filter(({ amount }) => selectedSquares.includes(amount))
     .map(({ amount }) => amount);
-  if (boxesAlreadyTaken.length) {
+  if (squaresAlreadyTaken.length) {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: `The following squares have already been taken: ${boxesAlreadyTaken.join()}\nPlease refresh the page and try again!`,
+      message: `The following squares have already been taken: ${squaresAlreadyTaken.join()}\nPlease refresh the page and try again!`,
     });
   }
-  return db.insert(boxesTable).values(
-    selectedBoxes.map((amount) => ({
+  return db.insert(squaresTable).values(
+    selectedSquares.map((amount) => ({
       name,
       amount,
       raffleTicketsEarned: countRaffleTickets(amount),

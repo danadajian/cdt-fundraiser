@@ -1,4 +1,4 @@
-describe("boxes", () => {
+describe("squares", () => {
   beforeEach(() => {
     cy.visit("/");
   });
@@ -11,28 +11,28 @@ describe("boxes", () => {
     cy.findAllByRole("cell").last().should("have.text", "$1");
   });
 
-  it("can select and deselect boxes", () => {
-    cy.findByRole("button", { name: "$5" }).as("box1");
-    cy.findByRole("button", { name: "$10" }).as("box2");
-    cy.get("@box1").click();
+  it("can select and deselect squares", () => {
+    cy.findByRole("button", { name: "$5" }).as("square1");
+    cy.findByRole("button", { name: "$10" }).as("square2");
+    cy.get("@square1").click();
     cy.findByText("Total amount: $5").should("be.visible");
-    cy.get("@box2").click();
+    cy.get("@square2").click();
     cy.findByText("Total amount: $15").should("be.visible");
-    cy.get("@box1").click();
+    cy.get("@square1").click();
     cy.findByText("Total amount: $10").should("be.visible");
   });
 
-  it("prevents me from proceeding to checkout if I have no boxes", () => {
+  it("prevents me from proceeding to checkout if I have no squares", () => {
     cy.findByRole("button", { name: "Pay Now" }).should("be.disabled");
   });
 
-  it("prevents me from proceeding to checkout if I have some boxes but no name", () => {
+  it("prevents me from proceeding to checkout if I have some squares but no name", () => {
     cy.findByRole("button", { name: "$5" }).click();
     cy.findByRole("button", { name: "$10" }).click();
     cy.findByRole("button", { name: "Pay Now" }).should("be.disabled");
   });
 
-  it("proceeds to checkout if I have some boxes and have entered my name", () => {
+  it("proceeds to checkout if I have some squares and have entered my name", () => {
     cy.findByRole("button", { name: "$150" }).click();
     cy.findByPlaceholderText("Type your name here").type("My Name");
     cy.findByRole("button", { name: "Pay Now" }).should("be.enabled").click();
@@ -71,11 +71,11 @@ describe("boxes", () => {
     );
   });
 
-  it("prevents me from taking a box that has already been taken", () => {
-    cy.findByRole("button", { name: "$20" }).as("box").click();
+  it("prevents me from taking a square that has already been taken", () => {
+    cy.findByRole("button", { name: "$20" }).as("square").click();
     cy.findByPlaceholderText("Type your name here").type("My Name");
     cy.findByRole("button", { name: "Pay Now" }).click();
     cy.reload();
-    cy.get("@box").should("be.disabled");
+    cy.get("@square").should("be.disabled");
   });
 });

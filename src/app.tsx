@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { Boxes } from "./boxes";
 import { ErrorPage } from "./error";
 import { Payment } from "./payment";
-import { BoxesProvider } from "./providers/boxes-provider";
+import { SquaresProvider } from "./providers/squares-provider";
 import { TrpcProvider } from "./providers/trpc-provider";
+import { Squares } from "./squares";
 
 export const App = () => {
   return (
@@ -28,10 +28,10 @@ export const App = () => {
           <TrpcProvider>
             <Suspense fallback={<div>Loading</div>}>
               <div className="flex flex-col items-center pt-16 text-center">
-                <BoxesProvider>
-                  <Boxes />
+                <SquaresProvider>
+                  <Squares />
                   <Payment />
-                </BoxesProvider>
+                </SquaresProvider>
               </div>
             </Suspense>
           </TrpcProvider>

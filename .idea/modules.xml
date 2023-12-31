@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tzedakah-boxes.iml" filepath="$PROJECT_DIR$/.idea/tzedakah-boxes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cdt-fundraiser.iml" filepath="$PROJECT_DIR$/.idea/cdt-fundraiser.iml" />
     </modules>
   </component>
 </project>

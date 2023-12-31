@@ -1,5 +1,5 @@
 import { db } from "../src/db";
-import { boxesTable } from "../src/schema";
+import { squaresTable } from "../src/schema";
 
-await db.delete(boxesTable);
+await db.delete(squaresTable);
 process.exit(0);

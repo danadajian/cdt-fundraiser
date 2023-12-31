@@ -1,14 +1,14 @@
 import { initTRPC } from "@trpc/server";
 
-import { getBoxes, purchaseBoxes, purchaseBoxesInput } from "./backend";
+import { getSquares, purchaseSquares, purchaseSquaresInput } from "./backend";
 
 const t = initTRPC.create();
 
 export const appRouter = t.router({
-  getBoxes: t.procedure.query(getBoxes),
-  purchaseBoxes: t.procedure
-    .input(purchaseBoxesInput.assert)
-    .mutation(({ input }) => purchaseBoxes(input)),
+  getSquares: t.procedure.query(getSquares),
+  purchaseSquares: t.procedure
+    .input(purchaseSquaresInput.assert)
+    .mutation(({ input }) => purchaseSquares(input)),
 });
 
 export type AppRouter = typeof appRouter;

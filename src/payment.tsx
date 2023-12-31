@@ -3,11 +3,11 @@ import { useContext, useState } from "react";
 
 import { RAFFLE_TICKET_ALERT_THRESHOLD, RAFFLE_TICKET_COST } from "./constants";
 import { Dialog } from "./dialog";
-import { BoxesContext } from "./providers/boxes-provider";
+import { SquaresContext } from "./providers/squares-provider";
 import { trpc } from "./trpc";
 
 export function Payment() {
-  const { selectedBoxes, donationAmount } = useContext(BoxesContext);
+  const { selectedSquares, donationAmount } = useContext(SquaresContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
   const amountToEarnAnotherRaffleTicket =
@@ -15,7 +15,7 @@ export function Payment() {
   const isCloseToEarningARaffleTicket =
     amountToEarnAnotherRaffleTicket <= RAFFLE_TICKET_ALERT_THRESHOLD;
 
-  const { mutate: purchaseBoxes } = trpc.purchaseBoxes.useMutation({
+  const { mutate: purchaseSquares } = trpc.purchaseSquares.useMutation({
     throwOnError: true,
     onSuccess: () => setIsFinishedPicking(true),
   });
@@ -37,11 +37,11 @@ export function Payment() {
         onChange={(event) => setName(event.target.value)}
       />
       <button
-        disabled={!selectedBoxes.length || !name}
+        disabled={!selectedSquares.length || !name}
         onClick={() =>
-          purchaseBoxes({
+          purchaseSquares({
             name,
-            selectedBoxes,
+            selectedSquares,
           })
         }
       >
@@ -72,7 +72,7 @@ export function Payment() {
 }
 
 function Results() {
-  const { donationAmount, raffleTicketsEarned } = useContext(BoxesContext);
+  const { donationAmount, raffleTicketsEarned } = useContext(SquaresContext);
   return (
     <>
       <p>Total amount: ${donationAmount}</p>

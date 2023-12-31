@@ -1,12 +1,12 @@
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "bun:test";
 import { eq } from "drizzle-orm";
 
-import { purchaseBoxes } from "./backend";
+import { purchaseSquares } from "./backend";
 import { db } from "./db";
-import { boxesTable } from "./schema";
+import { squaresTable } from "./schema";
 
 async function clearAllTables() {
-  await db.delete(boxesTable);
+  await db.delete(squaresTable);
 }
 
 describe("backend tests", () => {
@@ -23,35 +23,35 @@ describe("backend tests", () => {
     process.exit(0);
   });
 
-  it("tracks rafffle tickets for each box purchased", async () => {
-    await purchaseBoxes({
+  it("tracks rafffle tickets for each square purchased", async () => {
+    await purchaseSquares({
       name: "Name",
-      selectedBoxes: [1, 52, 115],
+      selectedSquares: [1, 52, 115],
     });
-    const boxes = await db.query.boxesTable.findMany();
-    expect(boxes.length).toBe(3);
-    expect(boxes[0]?.raffleTicketsEarned).toBe(0);
-    expect(boxes[1]?.raffleTicketsEarned).toBe(1);
-    expect(boxes[2]?.raffleTicketsEarned).toBe(2);
+    const squares = await db.query.squaresTable.findMany();
+    expect(squares.length).toBe(3);
+    expect(squares[0]?.raffleTicketsEarned).toBe(0);
+    expect(squares[1]?.raffleTicketsEarned).toBe(1);
+    expect(squares[2]?.raffleTicketsEarned).toBe(2);
   });
 
-  it("prevents me from taking a box that has been taken during my session", async () => {
-    await purchaseBoxes({
+  it("prevents me from taking a square that has been taken during my session", async () => {
+    await purchaseSquares({
       name: "Name",
-      selectedBoxes: [1, 2, 50],
+      selectedSquares: [1, 2, 50],
     });
     expect(() =>
-      purchaseBoxes({
+      purchaseSquares({
         name: "Name",
-        selectedBoxes: [50],
+        selectedSquares: [50],
       }),
     ).toThrow(
       "The following squares have already been taken: 50\nPlease refresh the page and try again!",
     );
-    const boxes = await db
+    const squares = await db
       .select()
-      .from(boxesTable)
-      .where(eq(boxesTable.amount, 50));
-    expect(boxes.length).toBe(1);
+      .from(squaresTable)
+      .where(eq(squaresTable.amount, 50));
+    expect(squares.length).toBe(1);
   });
 });
