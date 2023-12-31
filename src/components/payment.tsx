@@ -1,10 +1,13 @@
 import { Dialog as HeadlessUiDialog } from "@headlessui/react";
 import { useContext, useState } from "react";
 
-import { RAFFLE_TICKET_ALERT_THRESHOLD, RAFFLE_TICKET_COST } from "./constants";
+import {
+  RAFFLE_TICKET_ALERT_THRESHOLD,
+  RAFFLE_TICKET_COST,
+} from "../constants";
+import { SquaresContext } from "../providers/squares-provider";
+import { trpc } from "../trpc";
 import { Dialog } from "./dialog";
-import { SquaresContext } from "./providers/squares-provider";
-import { trpc } from "./trpc";
 
 export function Payment() {
   const { selectedSquares, donationAmount } = useContext(SquaresContext);
@@ -21,7 +24,7 @@ export function Payment() {
   });
 
   return (
-    <>
+    <div className="mt-4 flex flex-col">
       {isCloseToEarningARaffleTicket && (
         <p>
           You are ${amountToEarnAnotherRaffleTicket} away from earning a raffle
@@ -67,7 +70,7 @@ export function Payment() {
           </button>
         </>
       </Dialog>
-    </>
+    </div>
   );
 }
 

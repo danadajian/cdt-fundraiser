@@ -1,9 +1,13 @@
 import { useContext } from "react";
 
-import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "./constants";
-import { SquaresContext } from "./providers/squares-provider";
-import { trpc } from "./trpc";
-import { reversedRange } from "./utils";
+import { NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from "../constants";
+import { SquaresContext } from "../providers/squares-provider";
+import { trpc } from "../trpc";
+import { reversedRange } from "../utils";
+
+const selectedSquareColor = "bg-red-300";
+const unSelectedSquareColor = "bg-red-500";
+const disabledSquareColor = "bg-slate-400";
 
 export function Squares() {
   const { selectedSquares, setSelectedSquares } = useContext(SquaresContext);
@@ -26,14 +30,14 @@ export function Squares() {
                 const squareAmount =
                   (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
                 const squareColor = selectedSquares.includes(squareAmount)
-                  ? "bg-red-800"
-                  : "bg-red-500";
+                  ? selectedSquareColor
+                  : unSelectedSquareColor;
                 const squareDisabled = Boolean(
                   squaresTaken.find(({ amount }) => amount === squareAmount),
                 );
                 const squareHover = squareDisabled
-                  ? "bg-slate-400"
-                  : "hover:bg-red-300";
+                  ? disabledSquareColor
+                  : `hover:${selectedSquareColor}`;
                 return (
                   <td
                     key={columnNumber}

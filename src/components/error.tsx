@@ -1,7 +1,7 @@
 import { type TRPCClientError } from "@trpc/client";
 import React from "react";
 
-import { type AppRouter } from "./router";
+import { type AppRouter } from "../router";
 
 export const ErrorPage = ({
   error,

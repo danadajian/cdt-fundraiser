@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-import { ErrorPage } from "./error";
-import { Payment } from "./payment";
+import { ErrorPage } from "./components/error";
+import { Payment } from "./components/payment";
+import { Squares } from "./components/squares";
 import { SquaresProvider } from "./providers/squares-provider";
 import { TrpcProvider } from "./providers/trpc-provider";
-import { Squares } from "./squares";
 
 export const App = () => {
   return (
