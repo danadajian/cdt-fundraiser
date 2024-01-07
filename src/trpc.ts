@@ -1,11 +1,9 @@
 import { createTRPCReact } from "@trpc/react-query";
-import type { AnyRouter, inferRouterOutputs } from "@trpc/server";
-import { type Router } from "@trpc/server";
+import { type AnyTRPCRouter, type inferRouterOutputs } from "@trpc/server";
 import {
   type FetchHandlerRequestOptions,
   fetchRequestHandler,
 } from "@trpc/server/adapters/fetch";
-import { type AnyRouterDef } from "@trpc/server/dist/core/router";
 import { type Elysia } from "elysia";
 
 import { type AppRouter } from "./router";
@@ -16,11 +14,14 @@ export type RouterOutput = inferRouterOutputs<AppRouter>;
 
 type TRPCOptions = {
   endpoint?: string;
-} & Omit<FetchHandlerRequestOptions<AnyRouter>, "req" | "router" | "endpoint">;
+} & Omit<
+  FetchHandlerRequestOptions<AnyTRPCRouter>,
+  "req" | "router" | "endpoint"
+>;
 
 export const trpcRouter =
   (
-    router: Router<AnyRouterDef>,
+    router: AnyTRPCRouter,
     { endpoint = "/trpc", ...options }: TRPCOptions = { endpoint: "/trpc" },
   ) =>
   (app: Elysia) => {
