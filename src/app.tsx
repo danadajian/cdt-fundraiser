@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { ErrorPage } from "./components/error";
+import { Loader } from "./components/loader";
 import { Payment } from "./components/payment";
 import { Squares } from "./components/squares";
 import { SquaresProvider } from "./providers/squares-provider";
@@ -26,7 +27,7 @@ export const App = () => {
           fallbackRender={({ error }) => <ErrorPage error={error as Error} />}
         >
           <TrpcProvider>
-            <Suspense fallback={<div>Loading</div>}>
+            <Suspense fallback={<Loader />}>
               <div className="flex flex-col items-center pt-16 text-center">
                 <SquaresProvider>
                   <Squares />
