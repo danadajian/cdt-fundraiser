@@ -22,6 +22,9 @@ export function Payment() {
     throwOnError: true,
     onSuccess: () => setIsFinishedPicking(true),
   });
+  const payNowDisabled = !selectedSquares.length || !name;
+  const buttonClasses =
+    "rounded-lg border-2 border-slate-100 mt-2 p-2 bg-blue-800 text-white";
 
   return (
     <div className="mt-4 flex flex-col">
@@ -32,24 +35,29 @@ export function Payment() {
         </p>
       )}
       <Results />
-      <input
-        className="text-center"
-        type="text"
-        placeholder="Type your name here"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-      />
-      <button
-        disabled={!selectedSquares.length || !name}
-        onClick={() =>
-          purchaseSquares({
-            name,
-            selectedSquares,
-          })
-        }
-      >
-        Pay Now
-      </button>
+      <div>
+        <input
+          className="mt-2 h-10 rounded-md border text-center"
+          type="text"
+          placeholder="Type your name here"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <button
+          className={`ml-2 ${buttonClasses} ${
+            payNowDisabled ? "opacity-30" : ""
+          }`}
+          disabled={payNowDisabled}
+          onClick={() =>
+            purchaseSquares({
+              name,
+              selectedSquares,
+            })
+          }
+        >
+          Pay Now
+        </button>
+      </div>
       <Dialog dialogIsOpen={isFinishedPicking}>
         <>
           <HeadlessUiDialog.Title
@@ -63,7 +71,7 @@ export function Payment() {
             Your squares have been reserved. Remember your total amount and
             enter it on the next page.
           </HeadlessUiDialog.Description>
-          <button>
+          <button className={buttonClasses}>
             <a href="https://www.dortamid.org/missionpossible2" target="_blank">
               Click here to continue
             </a>
