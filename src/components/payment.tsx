@@ -1,22 +1,18 @@
 import { Dialog as HeadlessUiDialog } from "@headlessui/react";
 import { useContext, useState } from "react";
 
-import {
-  RAFFLE_TICKET_ALERT_THRESHOLD,
-  RAFFLE_TICKET_COST,
-} from "../constants";
+import { RAFFLE_TICKET_COST } from "../constants";
 import { SquaresContext } from "../providers/squares-provider";
 import { trpc } from "../trpc";
 import { Dialog } from "./dialog";
 
 export function Payment() {
-  const { selectedSquares, donationAmount } = useContext(SquaresContext);
+  const { selectedSquares, donationAmount, raffleTicketsEarned } =
+    useContext(SquaresContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
   const amountToEarnAnotherRaffleTicket =
     RAFFLE_TICKET_COST - (donationAmount % RAFFLE_TICKET_COST);
-  const isCloseToEarningARaffleTicket =
-    amountToEarnAnotherRaffleTicket <= RAFFLE_TICKET_ALERT_THRESHOLD;
 
   const { mutate: purchaseSquares } = trpc.purchaseSquares.useMutation({
     throwOnError: true,
@@ -24,50 +20,48 @@ export function Payment() {
   });
   const payNowDisabled = !selectedSquares.length || !name;
   const buttonClasses =
-    "rounded-lg border-2 border-slate-100 mt-2 p-2 bg-blue-800 text-white";
+    "rounded-lg border-0 mt-2 px-4 py-2 bg-orange-900 text-stone-200";
 
   return (
-    <div className="mt-4 flex flex-col">
-      {isCloseToEarningARaffleTicket && (
-        <p>
-          You are ${amountToEarnAnotherRaffleTicket} away from earning a raffle
-          ticket!
+    <div className="mt-4 flex max-w-52 flex-col items-center">
+      <Results />
+      <input
+        className="mt-2 h-10 rounded-md border text-center"
+        type="text"
+        placeholder="Type your name here"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
+      <button
+        className={`ml-2 ${buttonClasses} ${
+          payNowDisabled ? "opacity-30" : ""
+        }`}
+        disabled={payNowDisabled}
+        onClick={() =>
+          purchaseSquares({
+            name,
+            selectedSquares,
+          })
+        }
+      >
+        Pay Now
+      </button>
+      {Boolean(selectedSquares.length) && (
+        <p className="mt-4 font-bold">
+          You are ${amountToEarnAnotherRaffleTicket} away from earning{" "}
+          {raffleTicketsEarned > 0 ? "another" : "a"} raffle ticket!
         </p>
       )}
-      <Results />
-      <div>
-        <input
-          className="mt-2 h-10 rounded-md border text-center"
-          type="text"
-          placeholder="Type your name here"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-        <button
-          className={`ml-2 ${buttonClasses} ${
-            payNowDisabled ? "opacity-30" : ""
-          }`}
-          disabled={payNowDisabled}
-          onClick={() =>
-            purchaseSquares({
-              name,
-              selectedSquares,
-            })
-          }
-        >
-          Pay Now
-        </button>
-      </div>
       <Dialog dialogIsOpen={isFinishedPicking}>
         <>
           <HeadlessUiDialog.Title
             as="h2"
             className="pt-2 text-xl font-semibold leading-6"
           >
-            Agent {name}: You've helped us complete the mission!
+            Thanks, {name}!
           </HeadlessUiDialog.Title>
           <Results />
-          <HeadlessUiDialog.Description className="pt-5 font-semibold text-slate-500">
+          <HeadlessUiDialog.Description className="pt-5 font-semibold">
             Your squares have been reserved. Remember your total amount and
             enter it on the next page.
           </HeadlessUiDialog.Description>
@@ -85,9 +79,9 @@ export function Payment() {
 function Results() {
   const { donationAmount, raffleTicketsEarned } = useContext(SquaresContext);
   return (
-    <>
+    <div className="font-semibold">
       <p>Total amount: ${donationAmount}</p>
       <p>Raffle tickets earned: {raffleTicketsEarned}</p>
-    </>
+    </div>
   );
 }

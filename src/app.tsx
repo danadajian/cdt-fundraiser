@@ -22,19 +22,29 @@ export const App = () => {
         <link rel="stylesheet" href="/public/globals.css" />
         <title>CDT Fundraiser</title>
       </head>
-      <body>
+      <body className="flex h-screen flex-col items-center bg-dark-tan pt-16 text-center">
         <ErrorBoundary
           fallbackRender={({ error }) => <ErrorPage error={error as Error} />}
         >
           <TrpcProvider>
+            <img
+              src="/public/trail-to-365.png"
+              alt="header"
+              className="max-h-24"
+            />
             <Suspense fallback={<Loader />}>
-              <div className="flex flex-col items-center pt-16 text-center">
-                <SquaresProvider>
+              <SquaresProvider>
+                <div className="flex items-center">
                   <Squares />
                   <Payment />
-                </SquaresProvider>
-              </div>
+                </div>
+              </SquaresProvider>
             </Suspense>
+            <img
+              src="/public/join-the-expedition.png"
+              alt="header"
+              className="m-4 max-h-24"
+            />
           </TrpcProvider>
         </ErrorBoundary>
       </body>

@@ -5,9 +5,8 @@ import { SquaresContext } from "../providers/squares-provider";
 import { trpc } from "../trpc";
 import { reversedRange } from "../utils";
 
-const selectedSquareColor = "bg-red-300";
-const unSelectedSquareColor = "bg-red-500";
-const disabledSquareColor = "bg-slate-400";
+const selectedSquareColor = "bg-beige";
+const unSelectedSquareColor = "bg-dark-tan";
 
 export function Squares() {
   const { selectedSquares, setSelectedSquares } = useContext(SquaresContext);
@@ -22,7 +21,7 @@ export function Squares() {
 
   return (
     <>
-      <table className="table-auto">
+      <table className="mr-4 mt-4 table-auto">
         <tbody>
           {reversedRange(NUMBER_OF_ROWS).map((rowNumber) => (
             <tr key={rowNumber}>
@@ -35,21 +34,26 @@ export function Squares() {
                 const squareDisabled = Boolean(
                   squaresTaken.find(({ amount }) => amount === squareAmount),
                 );
-                const squareHover = squareDisabled
-                  ? disabledSquareColor
-                  : `hover:${selectedSquareColor}`;
                 return (
                   <td
                     key={columnNumber}
-                    className={`border-2 border-black p-1 ${squareColor} ${squareHover}`}
+                    className={`border-2 border-black ${squareColor}`}
                   >
-                    <button
-                      disabled={squareDisabled}
-                      onClick={() => onClick(squareAmount)}
-                      className="w-full"
-                    >
-                      ${squareAmount}
-                    </button>
+                    {squareDisabled ? (
+                      <img
+                        src="/public/cdt-flame.png"
+                        alt={`flame-${squareAmount}`}
+                        className="m-auto max-h-8"
+                      />
+                    ) : (
+                      <button
+                        disabled={squareDisabled}
+                        onClick={() => onClick(squareAmount)}
+                        className="w-full p-1"
+                      >
+                        ${squareAmount}
+                      </button>
+                    )}
                   </td>
                 );
               })}

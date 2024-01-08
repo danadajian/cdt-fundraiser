@@ -36,7 +36,7 @@ describe("squares", () => {
     cy.findByRole("button", { name: "$150" }).click();
     cy.findByPlaceholderText("Type your name here").type("My Name");
     cy.findByRole("button", { name: "Pay Now" }).should("be.enabled").click();
-    cy.findByRole("heading", { name: /You've helped us/ }).should("be.visible");
+    cy.findByRole("heading", { name: /Thanks, My Name/ }).should("be.visible");
     cy.findByRole("link", { name: /Click here to continue/ })
       .should("be.visible")
       .and("have.prop", "href", "https://www.dortamid.org/missionpossible2")
@@ -58,17 +58,17 @@ describe("squares", () => {
 
   it("notifies me when I am close to earning another raffle ticket", () => {
     cy.findByRole("button", { name: "$39" }).click();
-    cy.findByText(/You are.*away from earning a raffle ticket!/).should(
-      "not.exist",
+    cy.findByText("You are $11 away from earning a raffle ticket!").should(
+      "be.visible",
     );
     cy.findByRole("button", { name: "$1" }).click();
     cy.findByText("You are $10 away from earning a raffle ticket!").should(
       "be.visible",
     );
     cy.findByRole("button", { name: "$10" }).click();
-    cy.findByText(/You are.*away from earning a raffle ticket!/).should(
-      "not.exist",
-    );
+    cy.findByText(
+      "You are $50 away from earning another raffle ticket!",
+    ).should("be.visible");
   });
 
   it("prevents me from taking a square that has already been taken", () => {
@@ -76,6 +76,7 @@ describe("squares", () => {
     cy.findByPlaceholderText("Type your name here").type("My Name");
     cy.findByRole("button", { name: "Pay Now" }).click();
     cy.reload();
-    cy.get("@square").should("be.disabled");
+    cy.get("@square").should("not.exist");
+    cy.findByAltText("flame-20").should("be.visible");
   });
 });
