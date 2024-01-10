@@ -30,11 +30,9 @@ export const App = () => {
           <TrpcProvider>
             <Suspense fallback={<Loader />}>
               <SquaresProvider>
-                <>
-                  <Message />
-                  <Payment />
-                  <Squares />
-                </>
+                <Message />
+                <Payment />
+                <Squares />
               </SquaresProvider>
             </Suspense>
           </TrpcProvider>

@@ -8,14 +8,12 @@ export const ErrorPage = ({
 }: {
   error: Error | TRPCClientError<AppRouter>;
 }) => (
-  <>
-    <div className="flex flex-col items-center pt-16 text-center">
-      {"data" in error && error.data?.code && (
-        <ErrorMessage message={error.data?.code} />
-      )}
-      <ErrorMessage message={error.message} />
-    </div>
-  </>
+  <div className="flex flex-col items-center pt-16 text-center">
+    {"data" in error && error.data?.code && (
+      <ErrorMessage message={error.data?.code} />
+    )}
+    <ErrorMessage message={error.message} />
+  </div>
 );
 
 export const ErrorMessage = ({ message }: { message: string }) => (
