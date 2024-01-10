@@ -20,7 +20,7 @@ export function Payment() {
   });
   const payNowDisabled = !selectedSquares.length || !name;
   const buttonClasses =
-    "rounded-lg border-0 mt-2 px-4 py-2 bg-orange-900 text-stone-200";
+    "rounded-lg border-0 mt-2 px-8 py-2 bg-brown text-stone-100";
 
   return (
     <div className="mt-4 flex max-w-52 flex-col items-center">

@@ -5,9 +5,6 @@ import { SquaresContext } from "../providers/squares-provider";
 import { trpc } from "../trpc";
 import { reversedRange } from "../utils";
 
-const selectedSquareColor = "bg-beige";
-const unSelectedSquareColor = "bg-dark-tan";
-
 export function Squares() {
   const { selectedSquares, setSelectedSquares } = useContext(SquaresContext);
   function onClick(squareAmount: number) {
@@ -29,15 +26,15 @@ export function Squares() {
                 const squareAmount =
                   (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
                 const squareColor = selectedSquares.includes(squareAmount)
-                  ? selectedSquareColor
-                  : unSelectedSquareColor;
+                  ? "bg-brown"
+                  : "";
                 const squareDisabled = Boolean(
                   squaresTaken.find(({ amount }) => amount === squareAmount),
                 );
                 return (
                   <td
                     key={columnNumber}
-                    className={`border-2 border-black ${squareColor}`}
+                    className={`border-2 border-black ${squareColor} font-medium`}
                   >
                     {squareDisabled ? (
                       <img
