@@ -1,41 +1,34 @@
 import { Dialog as HeadlessUiDialog } from "@headlessui/react";
 import { useContext, useState } from "react";
 
-import { RAFFLE_TICKET_COST } from "../constants";
 import { SquaresContext } from "../providers/squares-provider";
 import { trpc } from "../trpc";
 import { Dialog } from "./dialog";
 
 export function Payment() {
-  const { selectedSquares, donationAmount, raffleTicketsEarned } =
-    useContext(SquaresContext);
+  const { selectedSquares } = useContext(SquaresContext);
   const [name, setName] = useState("");
   const [isFinishedPicking, setIsFinishedPicking] = useState(false);
-  const amountToEarnAnotherRaffleTicket =
-    RAFFLE_TICKET_COST - (donationAmount % RAFFLE_TICKET_COST);
 
   const { mutate: purchaseSquares } = trpc.purchaseSquares.useMutation({
     throwOnError: true,
     onSuccess: () => setIsFinishedPicking(true),
   });
   const payNowDisabled = !selectedSquares.length || !name;
-  const buttonClasses =
-    "rounded-lg border-0 mt-2 px-8 py-2 bg-brown text-stone-100";
+  const buttonClasses = "rounded-lg border-0 px-8 py-2 bg-brown text-stone-100";
 
   return (
-    <div className="mt-4 flex max-w-52 flex-col items-center">
+    <div className="flex w-6/12 max-w-screen-sm items-center justify-around pb-6 pt-12">
       <Results />
       <input
-        className="mt-2 h-10 rounded-md border text-center"
+        className="h-10 rounded-md border text-center"
         type="text"
         placeholder="Type your name here"
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
       <button
-        className={`ml-2 ${buttonClasses} ${
-          payNowDisabled ? "opacity-30" : ""
-        }`}
+        className={`${buttonClasses} ${payNowDisabled ? "opacity-30" : ""}`}
         disabled={payNowDisabled}
         onClick={() =>
           purchaseSquares({
@@ -46,12 +39,6 @@ export function Payment() {
       >
         Pay Now
       </button>
-      {Boolean(selectedSquares.length) && (
-        <p className="mt-4 font-bold">
-          You are ${amountToEarnAnotherRaffleTicket} away from earning{" "}
-          {raffleTicketsEarned > 0 ? "another" : "a"} raffle ticket!
-        </p>
-      )}
       <Dialog dialogIsOpen={isFinishedPicking}>
         <>
           <HeadlessUiDialog.Title
@@ -79,7 +66,7 @@ export function Payment() {
 function Results() {
   const { donationAmount, raffleTicketsEarned } = useContext(SquaresContext);
   return (
-    <div className="font-semibold">
+    <div className="font-medium">
       <p>Total amount: ${donationAmount}</p>
       <p>Raffle tickets earned: {raffleTicketsEarned}</p>
     </div>

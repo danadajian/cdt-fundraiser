@@ -17,47 +17,45 @@ export function Squares() {
   const [squaresTaken] = trpc.getSquares.useSuspenseQuery();
 
   return (
-    <>
-      <table className="mr-4 mt-4 table-auto">
-        <tbody>
-          {reversedRange(NUMBER_OF_ROWS).map((rowNumber) => (
-            <tr key={rowNumber}>
-              {reversedRange(NUMBER_OF_COLUMNS).map((columnNumber) => {
-                const squareAmount =
-                  (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
-                const squareColor = selectedSquares.includes(squareAmount)
-                  ? "bg-brown"
-                  : "";
-                const squareDisabled = Boolean(
-                  squaresTaken.find(({ amount }) => amount === squareAmount),
-                );
-                return (
-                  <td
-                    key={columnNumber}
-                    className={`border-2 border-black ${squareColor} font-medium`}
-                  >
-                    {squareDisabled ? (
-                      <img
-                        src="/public/cdt-flame.png"
-                        alt={`flame-${squareAmount}`}
-                        className="m-auto max-h-8"
-                      />
-                    ) : (
-                      <button
-                        disabled={squareDisabled}
-                        onClick={() => onClick(squareAmount)}
-                        className="w-full p-1"
-                      >
-                        ${squareAmount}
-                      </button>
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+    <table className="table-auto">
+      <tbody>
+        {reversedRange(NUMBER_OF_ROWS).map((rowNumber) => (
+          <tr key={rowNumber}>
+            {reversedRange(NUMBER_OF_COLUMNS).map((columnNumber) => {
+              const squareAmount =
+                (rowNumber - 1) * NUMBER_OF_COLUMNS + columnNumber;
+              const squareColor = selectedSquares.includes(squareAmount)
+                ? "bg-brown"
+                : "";
+              const squareDisabled = Boolean(
+                squaresTaken.find(({ amount }) => amount === squareAmount),
+              );
+              return (
+                <td
+                  key={columnNumber}
+                  className={`border-2 border-black ${squareColor} font-medium`}
+                >
+                  {squareDisabled ? (
+                    <img
+                      src="/public/cdt-flame.png"
+                      alt={`flame-${squareAmount}`}
+                      className="m-auto max-h-8"
+                    />
+                  ) : (
+                    <button
+                      disabled={squareDisabled}
+                      onClick={() => onClick(squareAmount)}
+                      className="w-full p-1"
+                    >
+                      ${squareAmount}
+                    </button>
+                  )}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

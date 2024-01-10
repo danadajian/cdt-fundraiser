@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import { ErrorPage } from "./components/error";
 import { Loader } from "./components/loader";
+import { Message } from "./components/message";
 import { Payment } from "./components/payment";
 import { Squares } from "./components/squares";
 import { SquaresProvider } from "./providers/squares-provider";
@@ -29,10 +30,11 @@ export const App = () => {
           <TrpcProvider>
             <Suspense fallback={<Loader />}>
               <SquaresProvider>
-                <div className="flex items-center">
-                  <Squares />
+                <>
+                  <Message />
                   <Payment />
-                </div>
+                  <Squares />
+                </>
               </SquaresProvider>
             </Suspense>
           </TrpcProvider>
