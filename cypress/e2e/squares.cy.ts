@@ -39,8 +39,11 @@ describe("squares", () => {
     cy.findByRole("heading", { name: /Thanks, My Name/ }).should("be.visible");
     cy.findByRole("link", { name: /Click here to continue/ })
       .should("be.visible")
-      .and("have.prop", "href", "https://www.dortamid.org/missionpossible2")
-      .and("have.prop", "target", "_blank");
+      .and(
+        "have.prop",
+        "href",
+        "https://www.dortamid.org/form/springfundraiser2024",
+      );
   });
 
   it("notifies me each time I earn a raffle ticket", () => {
