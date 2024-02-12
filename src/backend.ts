@@ -1,3 +1,4 @@
+import { SNS } from "@aws-sdk/client-sns";
 import { TRPCError } from "@trpc/server";
 import { type } from "arktype";
 
@@ -35,4 +36,16 @@ export async function purchaseSquares({
       raffleTicketsEarned: countRaffleTickets(amount),
     })),
   );
+}
+
+export async function notifyStakeholders({
+  name,
+  selectedSquares,
+}: typeof purchaseSquaresInput.infer) {
+  const sns = new SNS();
+  await sns.publish({
+    TopicArn: process.env.SNS_TOPIC_ARN,
+    Subject: `${name} has made a donation!`,
+    Message: `${name} has purchased the following squares:\n\n${selectedSquares.map((square) => `- $${square}`).join("\n")}`,
+  });
 }
