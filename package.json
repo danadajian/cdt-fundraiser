@@ -37,6 +37,9 @@
     "tailwindcss": "3.4.1"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "3.511.0",
+    "@aws-sdk/s3-request-presigner": "3.511.0",
+    "@json2csv/plainjs": "7.0.6",
     "@testing-library/cypress": "10.0.1",
     "@types/testing-library__cypress": "5.0.13",
     "@typescript-eslint/eslint-plugin": "6.19.1",
