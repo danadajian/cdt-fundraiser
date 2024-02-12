@@ -42,10 +42,10 @@ export async function notifyStakeholders({
   name,
   selectedSquares,
 }: typeof purchaseSquaresInput.infer) {
-  const sns = new SNS({ region: "us-east-2" });
+  const sns = new SNS();
   await sns.publish({
     TopicArn: process.env.SNS_TOPIC_ARN,
-    Subject: `${name} has made a donation!`,
-    Message: `${name} has purchased the following squares:\n\n${selectedSquares.map((square) => `- $${square}`).join("\n")}`,
+    Subject: `${name} made a donation!`,
+    Message: `${name} just purchased the following squares:\n\n${selectedSquares.map((square) => `- $${square}`).join("\n")}`,
   });
 }
