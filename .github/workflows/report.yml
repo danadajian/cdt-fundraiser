@@ -1,7 +1,12 @@
+name: Daily Report
+
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 22 * * *"
+
+permissions:
+  id-token: write
 
 jobs:
   report:
@@ -17,3 +22,6 @@ jobs:
           aws-region: us-east-2
           role-to-assume: ${{ secrets.ACTIONS_IAM_ROLE }}
       - run: bun ./scripts/generate-and-send-report.ts
+        env:
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+          SNS_TOPIC_ARN: ${{ secrets.SNS_TOPIC_ARN }}
