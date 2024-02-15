@@ -16,12 +16,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v1
       - run: bun install
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: us-east-2
-          role-to-assume: ${{ secrets.ACTIONS_IAM_ROLE }}
       - run: bun ./scripts/generate-and-send-report.ts
         env:
+          AWS_REGION: us-east-2
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           SNS_TOPIC_ARN: ${{ secrets.SNS_TOPIC_ARN }}
