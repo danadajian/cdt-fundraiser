@@ -13,6 +13,7 @@ locals {
   emails = [
     "danadajian@gmail.com",
     "rachelallencdt@gmail.com",
-    "sjahanfar@dortamid.com"
+    "sjahanfar@dortamid.com",
+    "gafoxes@bellsouth.net"
   ]
 }
