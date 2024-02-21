@@ -53,7 +53,10 @@ export function Payment() {
             enter it on the next page.
           </HeadlessUiDialog.Description>
           <button className={buttonClasses}>
-            <a href="https://www.dortamid.org/form/springfundraiser2024">
+            <a
+              href="https://www.dortamid.org/form/springfundraiser2024"
+              target="_blank"
+            >
               Click here to continue
             </a>
           </button>
