@@ -1,4 +1,4 @@
 [deploy]
-numReplicas = 1
+numReplicas = 2
 healthcheckPath = "/health"
 restartPolicyType = "ON_FAILURE"
